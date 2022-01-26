@@ -6,7 +6,7 @@ li {
     list-style: none;
 }
 
-img {
+.left-side-bar > ul img {
     padding: 0;
     margin: 0;
     height: 120px;
@@ -33,6 +33,11 @@ html, body {
     width: 100%;
 }
 
+#proName {
+    font-weight: bold;
+    font-size: 32px;
+}
+
 .left-side-bar {
     background-color: #fef0D6;
     color: #57422D;
@@ -41,20 +46,14 @@ html, body {
     position: fixed;
     left: -195px;
     transition: left .3s;
-    /* 태그의 우선순위를 정함, 사이드 바가 다른 div 위로 올라오도록 설정 */
+    /*태그의 우선순위를 정함, 사이드 바가 다른 div 위로 올라오도록 설정 */
     z-index: 1;
-}
-
-#proName {
-    font-weight: bold;
-    color: black;
 }
 
 .left-side-bar > .status-ico {
     text-align: right;
-    padding-right: 10px;
+    padding: 10px;
     padding-top: 23px;
-
 }
 
 .left-side-bar > ul li {
@@ -101,17 +100,22 @@ html, body {
 .content-area {
     height: 100%;
     width: 100%;
-    margin-left: 25px;
+    margin-left:25px;
     display: flex;
 }
-   
 
 .list-shop {
     background-color: white;
     height: 100%;
-    width: 350px;
+    width: 400px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
-
+.list-shop > div {
+    background-color: white;
+    width: 350px;
+    margin-top: 50px;
+}
 /* 
     지도의 크기는 들어가는 콘텐츠의 크기만큼 설정됨
     지도 div의 위치는 list-shop의 위치와 상대적인 위치
@@ -122,7 +126,14 @@ html, body {
     /* width: fit-content; */
     width: 100%;
     background-color: lightgray;
+}
 
+/* 지도 위 검색 창 */
+#search {
+    position: absolute;
+    top: 0;
+    background-color: white;
+    overflow:hidden;
 }
 
 /* 카테고리 - 드롭다운 */
@@ -135,7 +146,7 @@ html, body {
     margin: 20px;
 }
 
-.dropdown > ul{
+.dropdown > ul {
     background: rgba(255, 255, 255, 0.473);
 }
 
@@ -145,10 +156,24 @@ html, body {
     border: none;
     color: #57422D;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .dropdown-item {
     font-weight: bolder;
+    color: #272525;
     border: none;
+}
+
+.list-shop-content {
+    border-bottom: #272525;
+    padding-bottom: 10px;
+}
+
+.list-shop-content > h5{
+    text-align: center;
+}
+
+pre {
+    white-space: pre-wrap;
 }
