@@ -46,11 +46,11 @@ def ajaxGet(request):
     for store in store_list:
         img_path = str(store.store_img).lstrip('/main')
 
-        out += '<div class="list-shop-content"> <div class="store_title">'
-        out += store.store_name + '</div><img src="/'
-        out += img_path + '" id="store-image"/><br><span>'
+        out += '<div class="list-shop-content"> <div class="title_img"><div class="store_title">'
+        out += store.store_name + '</div><img id="store-image" src="/'
+        out += img_path + '"/></div><br><span>🏠 '
         out += store.store_addr + '</span><br><pre>'
-        out += store.time + '</pre><span>'
+        out += store.time + '</pre><span>☎ '
         out += store.store_phone + '</span><br>'
         out += '<button class="btn-btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample'+str(num)+'" aria-expanded="false" aria-controls="collapseExample'+str(num)+'"> ▽ </button>'
         out += '<div class="collapse" id="collapseExample'+str(num)+'"> <div class="card card-body"> <pre>'

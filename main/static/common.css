@@ -104,16 +104,25 @@ html, body {
     display: flex;
 }
 
-.list-shop {
+.list-shop{
     background-color: white;
     height: 100%;
-    width: 400px;
-    padding-left: 25px;
-    padding-right: 25px;
+    width: 500px;
+    padding-left: 15px;
+    padding-right: 20px;
+    padding-top: 20px;
+    overflow-y: auto;
 }
+
+.list-shop ::-webkit-scrollbar {
+    background-color: aqua;
+    width: 15px;
+}
+
 .list-shop > div {
     background-color: white;
     width: 350px;
+    margin: 0px;
 }
 /* 
     지도의 크기는 들어가는 콘텐츠의 크기만큼 설정됨
@@ -158,13 +167,51 @@ html, body {
 
 .list-shop-content {
     border-bottom: #272525;
-    padding-bottom: 5px;
+    margin-top: 10px;
 }
 
 .list-shop-content > h5{
     text-align: center;
+    margin: 0px;
+    font-weight: bold;
+    font-size: 25px;
+    width: inherit;
 }
 
 pre {
     white-space: pre-wrap;
+    margin: 10px 0px 0px 0px;
+    font-size: 16px;
+}
+
+hr {
+    width: 350px;
+}
+/* 설명칸 css */
+.btn-btn-primary{
+    text-align: center;
+    background-color: white;
+    border: none;
+    margin-top: 15px;
+    margin: auto;
+    display: block;
+}
+
+.title_img {
+    display: flex;
+    justify-content: center;
+}
+
+/* 가게 이름 div */
+.store_title{
+    font-weight: bold;
+    font-size: 20px;
+    padding-right: 40px;
+    padding-top: 70px;
+}
+
+/* 가게 사진 img*/
+#store-image {
+    width: 170px;
+    height: 170px;
 }
