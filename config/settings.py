@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'member',
     'main',
     'board',
     'django.contrib.admin',
@@ -125,3 +126,15 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR, 'static')
 ]
+
+# from patholib import Path
+# import os,environ
+
+# env = environ.Env(
+#     # set casting, deault value
+#     DEBUG=(bool, False)
+# )
+
+# environ.Env.read_env(
+#     env_file= os.path.join(BASE_DIR,'.env')
+# )
