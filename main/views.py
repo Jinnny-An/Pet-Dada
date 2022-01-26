@@ -1,8 +1,11 @@
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse
+from html5lib import serialize
 from .models import Category, Store, User
 from django.forms.models import model_to_dict
 from django.utils import timezone
+import json
 
 def insert(request):
     # Category(c_id=1,c_name='식당').save()
@@ -45,18 +48,26 @@ def ajaxGet(request):
     store_list = Store.objects.filter(c_id=key)
     print(store_list)
     res = []
-    
+
     for c in store_list:
-        c = model_to_dict(c)
-        res.append(c)
+        temp = {"store_name": c.store_name,
+                "store_addr": c.store_addr,
+                "store_phone": c.store_phone,
+                "store_intro": c.intro
+                }
+        res.append(temp)
 
-    print(res)
+    out = ''
+    for store in store_list:
+        out += '<div class="list-shop-content"> <h5>'
+        out += store.store_name + '</h5><br><span>'
+        out += store.store_addr + '</span><br><span>'
+        out += store.store_phone + '</span><br><pre>'
+        out += store.intro + '</pre>'
 
-    return render(
-        request,
-        'main/pet_main.html',
-        {'store_list':res}
-    )
+    return HttpResponse(out)
+    # return render(request, 'main/pet_main.html', {'store_list':res})
+    # return JsonResponse(res, safe=False)
 
 
 @csrf_exempt
