@@ -5,11 +5,10 @@
 <head>
     <!-- 부트스트랩 css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href='{% static "common.css"%}?after'>
+    <link rel="stylesheet" type="text/css" href='{% static "common.css"%}?after'>
     <meta charset="UTF-8">
     <title>PET DADA</title>
 </head>
-
 <body>
     <!-- 사이드 바 -->
     <div class="left-side-bar">
@@ -56,15 +55,25 @@
     <!-- 가게 목록 -->
     <div class="content-area">
         <div class="list-shop" id="list-view">
+            <!-- 가게 목록~~
             <br>
-            {% for store in res_sh_list %}
+            {% for store in res %}
             <div class="list-shop-content">
                 <h5>{{store.store_name}}</h5><br>
                 <span>{{store.store_addr}}</span><br>
                 <span>{{store.store_phone}}</span><br>
                 <p>{{store.intro}}</p><br>
             </div>
-            {% endfor %}
+            {% endfor %} -->
+            <!-- <h5>토실이네</h5>
+            <br>
+            <span>경기도 남양주시 진접읍 광릉수목원로186번길 49 </span>
+            <br>
+            <span>010 - 9858 - 0759</span>
+            <br>
+            <pre>※ 반려견 동반시 유의사항 ※
+                - 객실 포함 실내 모든 공간에서 중성화여부 관계없이 매너밸트 필수 착용입니다.
+                - 반려견 배설물 즉시 치워주세요.<br></pre> -->
         </div>
         <!-- 지도 -->
         <div class="map">
@@ -86,15 +95,6 @@
           <li><a class="dropdown-item" id="6" onclick="show_list(this.id)">공원</a></li>
           <li><a class="dropdown-item" id="7" onclick="show_list(this.id)">미용</a></li>
           <li><a class="dropdown-item" id="8" onclick="show_list(this.id)">숙박시설</a></li>
-          
-          <!-- <li><a class="dropdown-item" id="1" >식당</a></li>
-          <li><a class="dropdown-item" id="2" >카페</a></li>
-          <li><a class="dropdown-item" id="3" >병원</a></li>
-          <li><a class="dropdown-item" id="4" >백화점</a></li>
-          <li><a class="dropdown-item" id="5" >반려용품 가게</a></li>
-          <li><a class="dropdown-item" id="6" >공원</a></li>
-          <li><a class="dropdown-item" id="7" >미용</a></li>
-          <li><a class="dropdown-item" id="8" >숙박시설</a></li> -->
         </ul>
       </div>
 
@@ -103,40 +103,64 @@
       
       <!-- ajax : GET -->
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-      <script>
-            // document.getElementsByClassName("dropdown-item").addEventListener('click', function(e) {
-            //     // e.preventDefault();
-            //     var targetId = e.target.id;
-            //     alert(targetId);
-
-            // });
-
-            function show_list(clicked_id) {
-                console.log(clicked_id);
-                const data_get = axios({
-                    url: '/main/req/get/',
-                    method: 'get',
-                    params: {'key': clicked_id}
-                });
-                data_get.then(function (result) {
-                    console.log(result.data_get);
-                });
-
-            }
-        
-            // function show_list(clicked_id) {
-            //     console.log(clicked_id);
-            //     const data_post = axios({
-            //         url: '/main/req/post/',
-            //         method: 'post',
-            //         data: {'key': clicked_id}
-            //     });
-            //     data_post.then(function (result) {
-            //         console.log(result.data_post);
-            //     });
-            // }
-        
-        </script>
 
     </body>
+
+    <script>
+    //   내용이 안뜬다.............
+        function show_list(clicked_id) {
+            // print('/main/req/get/?key='+clicked_id)
+            const ajax = fetch('/main/req/get/?key='+clicked_id,{
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+            
+            });
+            ajax.then(function (response) {
+                return response.text();
+            }).then(function (result) {
+                console.log(result);
+
+                var view = document.getElementById('list-view')
+                view.innerHTML = result;
+                
+                // res = "";
+                // for (const store in result) {
+                //     res += '<div class="list-shop-content"> <h5>';
+                //     res += store.store_name + '</h5><br><span>';
+                //     res += store.store_addr + '</span><br><span>';
+                //     res += store.store_phone + '</span><br><p>';
+                //     res += store.intro + '</p><hr>';
+                // }
+
+                // document.getElementById('list-view').innerHTML = res;
+
+
+            });
+        }
+
+        // function show_list(clicked_id) {
+        //     console.log(clicked_id);
+        //     const data_get = axios({
+        //         url: '/main/req/get/',
+        //         method: 'get',
+        //         params: {'key': clicked_id}
+        //     });
+        //     data_get.then(function (result) {
+        //         console.log(result.data_get);
+        //     });
+        // }
+
+        // function show_list(clicked_id) {
+        //     console.log(clicked_id);
+        //     const data_post = axios({
+        //         url: '/main/req/post/',
+        //         method: 'post',
+        //         data: {'key': clicked_id}
+        //     });
+        //     data_post.then(function (result) {
+        //         console.log(result.data_post);
+        //     });
+        // }
+
+    </script>
 </html>
