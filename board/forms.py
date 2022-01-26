@@ -1,12 +1,13 @@
 from django import forms
-from board.models import Review,Comment
-from django import forms
+from .models import Review,Comment
 from django.forms import ModelForm, models
+
+
 
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review  # 사용할 모델
-        fields = ['subject', 'content','file']  
+        fields = '__all__'
         # ReviewForm에서 사용할 Review 모델의 속성
         labels = {
             'subject': '제목',

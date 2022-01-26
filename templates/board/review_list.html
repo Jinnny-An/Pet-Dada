@@ -14,7 +14,7 @@
         <div class="col-4 input-group">
             <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}">
             <div class="input-group-append">
-                <button class="btn btn-outline-primary" type="button" id="btn_search">찾기</button>
+                <button class="btn btn-outline-primary" type="button" id="btn_search">검색</button>
             </div>
         </div>
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,7 +50,7 @@
             <td class="text-left">
                 <a href="{% url 'board:detail' review.id %}">{{ review.subject }}</a>
                 {% if review.comment_set.count > 0 %}
-                <span class="text-danger small ml-2">{{ review.comment_set.count }}</span>
+                <span class="badge bg-secondary text-primary small ml-2">{{ review.comment_set.count }}</span>
                 {% endif %}
             </td>
             <td>
@@ -101,7 +101,7 @@
         {% endif %}
     </ul>
     <!-- 페이징처리 끝 -->
-    <a href="{% url 'board:review_create' %}" class="btn btn-primary">질문 등록하기</a>
+    <a href="{% url 'board:review_create' %}" class="btn btn-primary">리뷰 등록하기</a>
 </div>
 <form id="searchForm" method="get" action="{% url 'board:index' %}">
     <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">

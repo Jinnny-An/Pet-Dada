@@ -13,10 +13,12 @@
     {% endif %}
 <h2 class="border-bottom py-2"></h2>
 <div class="card mb-3">
-    <img src="..." class="card-img-top" alt="No Image">
+    {% comment %} <img src="..." class="card-img-top" alt="No Image"> {% endcomment %}
     <div class="card-body">
         <h5 class="card-title">{{review.subject}}</h5>
-        <div class="card-text" >{{review.content|mark}}</div>
+        <div class="card-text" >
+            <img class="imange" src="/media/{{review.file}}" width='50%'></div>
+            {{review.content|mark}}
         <div class="d-flex justify-content-end">
             {% if review.modify_date %}
             <div class="badge badge-light p-2 text-left mx-3">
@@ -46,7 +48,7 @@
         <div class="card-body">
             <div class="card-text">
                 <div class="media">
-                <img src="..." class="align-self-start mr-3" alt="No Image"><!-- 댓글 이미지 링크 src=에 등록 -->
+                {% comment %} <img src="..." class="align-self-start mr-3" alt="No Image"><!-- 댓글 이미지 링크 src=에 등록 --> {% endcomment %}
                 <div class="media-body">
                     <h5 class="mt-0">{{ comment.content |mark}}</h5>
                     <p></p>

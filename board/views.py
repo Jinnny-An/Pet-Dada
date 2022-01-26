@@ -34,21 +34,48 @@ def detail(request, review_id):
     context = {'review': review}
     return render(request, 'board/review_detail.html', context)
 
+# def review_create(request):
+#     if request.method == 'POST':
+#         form = ReviewForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             file = form.save()
+#             file.save()
+#             return redirect('board:index')
+#         else:
+#             return HttpResponse(' ')
+#     else:
+#         form = ReviewForm()
+#         return render(request, 'board/review_form.html', {'form':form})
 
+def upload3(request):
+    if request.method =='POST':
+        form=ReviewForm(request.POST,request.FILES)
+        if form.is_valid():
+            review=form.save(commit=False)
+            review.save()
+            print(review.file)
+            return redirect('board:index')
+    else:
+        form=ReviewForm()
+        return render(request,'board/reviewform2.html',{'form':form})
+
+def img_show(request):
+    id=request.GET.get('id')
+    form=Review.objects.get(id=id)
+    return render(request,'board/reviewform2.html',{'form':form})
 
 def review_create(request):
     #board의 질문 등록(사진 업로드 가능하게 못했음)
     if request.method == 'POST':
         form = ReviewForm(request.POST,request.FILES)
+        
         subject=request.POST['subject']
         content=request.POST['content']
-        file=request.POST['file']
+        file=request.FILES.get('file')
         if form.is_valid():
             review = form.save(commit=False)
-            name=review.file.name
-            size=review.file.size
-            review.create_date = timezone.now()
             review.save()
+            print(review.file)
             return redirect('board:index')
     else:
         form = ReviewForm()
