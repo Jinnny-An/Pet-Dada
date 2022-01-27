@@ -57,8 +57,8 @@
         <h3><small class="text-muted">생일 : </small>{{pet.age}}</h3>
         <h3><small class="text-muted">분류 : </small>{{pet.size}}</h3>
         <h3><small class="text-muted">중성화 : </small>{{pet.neutered}}</h3>
-            <a href = "{% url 'mypageapp:create_pet' user.id %}"><button type="submit" class='btn btn-primary'>MY PET 등록하기</button></a>
-            <a href = "{% url 'mypageapp:update_pet' user.id %}"><button type="submit" class='btn btn-primary'>MY PET 정보수정</button></a>
+            <a href = "{% url 'mypageapp:create_pet' %}"><button type="submit" class='btn btn-primary'>MY PET 등록하기</button></a>
+            <a href = "{% url 'mypageapp:update_pet' %}"><button type="submit" class='btn btn-primary'>MY PET 정보수정</button></a>
     </p>
     </div>
 </details>

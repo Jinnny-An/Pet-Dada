@@ -12,7 +12,8 @@ def update_user(request):
         if form.is_valid():
             profile = form.save(commit=False)
             profile.save()
-            return redirect('mypageapp:update_user', id = id)
+            return redirect('mypageapp:update_user')
+            # , id = id)
     else:
         try :
             pet = Pet.objects.get(user_id = id)
@@ -59,7 +60,7 @@ def update_pet(request):
             profile = form.save(commit=False)
             profile.user = form.user
             profile.save()
-            return redirect('mypageapp:update_user', id = id)
+            return redirect('mypageapp:update_user')
     else:
         form = PetForm(instance = profile)
         return render(request, 'mypageapp/pet_profile.html', {'form':form},
