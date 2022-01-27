@@ -122,7 +122,7 @@ html, body {
 .list-shop > div {
     background-color: white;
     width: 350px;
-    margin: 0px;
+    margin-top: 50px;
 }
 /* 
     지도의 크기는 들어가는 콘텐츠의 크기만큼 설정됨
@@ -134,6 +134,13 @@ html, body {
     /* width: fit-content; */
     width: 100%;
     background-color: lightgray;
+}
+/* 지도 검색 & 현위치 창*/
+#search {
+    position: absolute;
+    top: 0;
+    background-color: white;
+    overflow: hidden;
 }
 
 /* 카테고리 - 드롭다운 */
