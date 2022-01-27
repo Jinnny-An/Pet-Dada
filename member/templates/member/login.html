@@ -1,0 +1,53 @@
+<html lang="en">
+   <head>
+       
+        <title>Petdada login</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        
+        {% load static %}
+        <link rel="stylesheet" href="{% static "style2.css" %}">
+
+</head>
+<body>
+   <div class ="login">
+         <div class="account-login">
+            
+            <form method="post" action="{% url 'member:login' %}">
+               {% csrf_token %}
+               <div class="login-form">
+                  <h1><center>Pet dada</center></h1>
+                  <br>
+                  <div class="form-group">
+                     
+
+                     <label for="user_email"></label>
+                     <input type="text" class="form-control" name="user_email" id="user_email" placeholder="User Email"
+                        value="{{ form.user_email.value | default_if_none:'' }}">
+                  </div>
+                  <div class="form-group">
+                  
+                     <input type="password" class="form-control" name="password" 
+                        id="password" placeholder="Password" value="{{ form.password.value | default_if_none:'' }}">
+                  </div>
+                  <div class="remember">
+                     <label class="custom-checkbox">Remember me
+                     <input type="checkbox">
+                     <span class="checkmark"></span>
+                     </label>
+                     
+                  </div>
+                  <b><button type="submit" class="btn btn-primary">LOGIN</button></b>
+                  <p>Welcome to the 'Pet dada'   <a href="/member/signup/">Sign up</a></p>
+               
+               </div>   
+               </form>
+         
+         </div>
+   </div>
+</body>
+
+</html> 
