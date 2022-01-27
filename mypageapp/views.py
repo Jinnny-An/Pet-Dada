@@ -36,7 +36,6 @@ def create_pet(request):
                 profile = form.save(commit=False)
                 profile.user = User.objects.get(id=id)
                 profile.save()
-                # print(profile.pet_img)
                 return redirect('mypageapp:update_user', id = id)
             else:
                 return HttpResponse('작성 양식이 잘못되었습니다.')
