@@ -57,8 +57,8 @@ def signup(request):
             mail_to = request.POST["email"]
             email = EmailMessage(mail_title, message, to=[mail_to])
             email.send()
-            #return redirect("/home")  #메인으로
-            return render(request, 'member/login.html') # 로그인화면으로!
+            
+            return render(request, 'member/signup2.html') # 완료안내
     
     # 비밀번호 일치 안하면 회원가입 페이지 
     return render(request, 'member/signup.html')
