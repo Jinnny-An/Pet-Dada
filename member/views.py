@@ -102,13 +102,10 @@ def login(request):
 # 로그아웃 #
 
 def logout(request):
-    # 포스트 방식으로 들어오면
-    if request.method == 'POST':
-        # 유저 로그아웃
         auth.logout(request)
-        # /home/ > 로그인 화면으로 보내기
-        return redirect('/home/')
-    return render(request, 'member/signup.html')
+        # 메인
+        return redirect('/main/pet_main/')
+
 
 
 # 이메일 활성화(비활성화) #
