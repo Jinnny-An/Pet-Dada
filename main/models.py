@@ -12,7 +12,7 @@ class User(models.Model):
     profile_img = models.ImageField()
 
     class Meta:
-        db_table = 'user'
+        db_table = 'user_main'
 
 class Category(models.Model):
     c_name = models.CharField(max_length=50)
