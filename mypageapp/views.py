@@ -19,7 +19,6 @@ def update_user(request):
             pet = Pet.objects.get(user_id = id)
         except :
             pet = Pet.objects.filter(user_id = id)
-
         form = UserForm(instance = profile)
         return render(request, 'mypageapp/user_profile.html', {'form':form, 'pet':pet},
         )
