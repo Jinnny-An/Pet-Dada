@@ -9,7 +9,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         
         {% load static %}
-        <link rel="stylesheet" href="{% static "style2.css" %}">
+        <link rel="stylesheet" href="{% static 'style2.css' %}">
 
 </head>
 <body>
@@ -24,8 +24,8 @@
                   <div class="form-group">
                      
 
-                     <label for="user_email"></label>
-                     <input type="text" class="form-control" name="user_email" id="user_email" placeholder="User Email"
+                     {% comment %} <label for="username"></label> {% endcomment %}
+                     <input type="text" class="form-control" name="username" id="username" placeholder="User ID"
                         value="{{ form.user_email.value | default_if_none:'' }}">
                   </div>
                   <div class="form-group">
