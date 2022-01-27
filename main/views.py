@@ -29,7 +29,7 @@ def show_main(request):
     store = Store.objects.all()
     result = []
     for s in store:
-        temp = {'store_name': s.store_name, 'store_addr': s.store_addr, 'phone': s.phone, 'time': s.time, 'intro': s.intro, 'category': s.c_id.c_name, 'c_id': s.c_id}
+        temp = {'store_name': s.store_name, 'store_addr': s.store_addr, 'phone': s.phone, 'time': s.time, 'intro': s.intro, 'category': s.c_id.c_name}
         result.append(temp)
     storeJson = json.dumps(result)
     return render(request, 'main/pet_main.html', {'store': storeJson})
