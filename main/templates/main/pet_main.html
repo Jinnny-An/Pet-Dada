@@ -177,7 +177,8 @@
                                     overlay.setMap(null);
                                 });
                             });
-                        } 
+                        }
+                        map.panTo(coords); 
                     });
                 }
             });
@@ -185,13 +186,20 @@
     
         //현위치로 가기
         function curr_place(){
+            removeMarker();
+            show_list(9);
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var lat = position.coords.latitude;
                     var lon = position.coords.longitude;
 
                     var locPosition = new kakao.maps.LatLng(lat, lon);
-
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: locPosition,
+                    });
+                    marker.setMap(map);
+                    markers.push(marker);
                     map.panTo(locPosition);
                 })
             } else {
@@ -254,7 +262,8 @@
                                         overlay.setMap(null);
                                     });
                                 });
-                            } 
+                            }
+                            map.panTo(coords); 
                         });
                     }
                 });
@@ -278,6 +287,8 @@
                                 });
                                 marker.setMap(map);
                                 markers.push(marker);
+
+                                show_list()
         
                                 // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
                                 kakao.maps.event.addListener(marker, 'click', function() {
@@ -320,7 +331,7 @@
             }
             
         }
-        
+
     </script>
     </body>
 
