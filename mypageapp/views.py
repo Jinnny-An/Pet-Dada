@@ -4,6 +4,7 @@ from .models import *
 from .forms import *
 
 
+
 def update_user(request):
     id = request.session['id']
     profile = User.objects.get(id=id)

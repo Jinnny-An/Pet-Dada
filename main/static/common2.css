@@ -6,68 +6,170 @@ li {
     list-style: none;
 }
 
+#logo {
+    padding: 0;
+    margin: 0;
+    height: 120px;
+    width: 120px;
+}
+
 a {
     color: inherit;
     text-decoration: none;
     font-size: larger;
 }
 
+.content_parent {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.left-side-bar > ul ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: #fef0D6;
+}
+
 body {
     height: 100%;
     width: 100%;
     background: #fef0d6c7;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
 }
 
-.page-title {
-    margin-top: 15px;
-    font-size: 20px;
+#proName {
     font-weight: bold;
+    font-size: 32px;
 }
 
-.whole-contents {
+.left-side-bar {
+    background-color: #fef0D6;
+    color: #57422D;
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    /* 태그의 우선순위를 정함, 사이드 바가 다른 div 위로 올라오도록 설정 */
+    /* z-index: 1; */
+}
+
+.left-side-bar > .status-ico {
+    text-align: right;
+    padding: 10px;
+}
+
+.left-side-bar > ul li {
+    position: relative;
+}
+
+.left-side-bar ul {
+    font-weight: bold;
+    text-align: center;
+    padding: 0;
+}
+
+.left-side-bar ul > li > a {
+    display: block;
+    padding: 10px;
+    white-space: nowrap;
+}
+
+
+.left-side-bar ul > li:hover ul {
+    display: block;
+}
+/* 메뉴에 마우스 올렸을 때 바뀌는 색깔 */
+.left-side-bar ul > li:hover > a {
+    background-color: #F0EAD4;
+}
+
+.left-side-bar > .status-ico > span:last-child {
+    display: none;
+}
+
+.left-side-bar:hover > .status-ico > span:last-child {
+    display: block;
+}
+
+.left-side-bar:hover > .status-ico > span:first-child {
+    display: none;
+}
+
+
+/* 개인정보  */
+.user_contents {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 0 220px;
+    height: 100%;
+    width: 100%;
+    
+    padding:0;
+
+}
+
+.my_user_info, .my_pet_info {
+    width: 500px;
+    height: 650px;
+    border: 8px solid white;
+    margin-top: 50px;
+    margin-right: 0px;
+    display: flex;
+}
+.my_pet_info{
+    margin-left: 70px;
+    flex-direction: column;
+}
+
+.user_profile {
+    background: transparent;
+}
+
+.user_profile_img{
+    align-items: center;
     display: flex;
     flex-direction: column;
-    border: 8px solid white;
     text-align: center;
-    align-items: center;
-    justify-content: center;
+    object-fit: cover;
+    margin: 0;
     width: 500px;
+    height: 320px; 
+    border-radius:10%;
+    overflow:hidden;
 }
 
-#pet-upload-image {
-    flex-direction: column;
+#profile_img {
+    width: 400px;
+    margin-left: 40px;
+    margin-top: 10px;
 }
 
 .image {
     width: 250px;
     height: 250px;
+    margin-top: 15px;
 }
 
-.img-upload-label{
-    width: 150px;
+.img-upload-lable {
+    width: 90px;
     height: 30px;
     background-color: #6b5744;
     font-weight: bold;
     color: white;
-    font-size: 16px;
+    font-size: 14x;
     border: 2px solid #6b5744;
     border-radius: 10px;
-    margin: 10px 0;
-    padding: 0;
 }
 
 .form-group > label {
+    width: 50px;
     font-weight: bold;
     text-align: center;
-}
-
-fieldset {
-    border: none;
+    margin-right: 20px;
+    margin-top: 7px;
 }
 
 .form-control {
@@ -76,41 +178,28 @@ fieldset {
 
 .form-group {
     width: 500px;
-    margin: 15px 0 0;
+    margin-top: 20px;
     background-color: transparent;
     align-items: center;
     display: flex;
     justify-content: center;
     text-align: center;
 }
-.form-label-mt-4{
-    margin-right: 10px;
-}
 
-#age {
-    margin-left: 25px;
-}
 
-#size-radio-label {
-    margin-right: 15px;
+.modify_btn {
+    margin-top: 30px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100px;
 }
-#size-radio {
-    margin-left: 19px;
-}
-
-#gender-radio {
-    padding-right: 130px;
-}
-#gender-radio-label {
-    margin-left: 31px;
-    margin-right: 34px;
-}
-
-#neutered-radio {
-    padding-right: 140px;
-}
-#neutered-radio-label {
-    margin-right: 19px;
+.btn-btn-primary{
+    background-color: transparent;
+    width: 145px;
+    height: 50px;
+    font-size: 16px;
+    border-color: lightgray;
 }
 
 .form-control {
@@ -335,23 +424,27 @@ textarea.form-control-lg {
     border-radius: 0.25rem;
 }
 
+/* 펫 정보 */
+.pet-title {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.pet_img{
+    flex-direction: column;
+    text-align: center;
+    
+}
+.pet-profile {
+    padding-top: 20px;
+}
+.text-muted{
+    margin-left: 80px;
+}
+
 .btn-submit-pet {
-    margin-top: 5px;
-    margin-bottom: 15px;
-}
-
-.btn-btn-primary{
-    background-color: transparent;
-    width: 120px;
-    height: 50px;
-    font-size: 16px;
-    border-color: lightgray;
-}
-.btn-btn-primary :hover{
-    background-color: lightgray;
-    border-color: lightgray;
-}
-
-#left-submit-btn {
-    margin-right: 20px;
+    margin-top: 16px;
+    text-align: center;
 }
