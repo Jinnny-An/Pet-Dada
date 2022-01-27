@@ -12,7 +12,7 @@ class User(models.Model):
     user_phone = models.CharField(max_length=50)
     date_joined = models.DateTimeField()
     class Meta:
-        db_table = 'Users'
+        db_table = 'User'
         app_label = 'member'
         managed = False
     

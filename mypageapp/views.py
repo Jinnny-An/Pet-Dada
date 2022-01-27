@@ -4,6 +4,7 @@ from .models import *
 from .forms import *
 
 
+
 def update_user(request):
     id = request.session['id']
     profile = User.objects.get(id=id)
@@ -19,7 +20,6 @@ def update_user(request):
             pet = Pet.objects.get(user_id = id)
         except :
             pet = Pet.objects.filter(user_id = id)
-
         form = UserForm(instance = profile)
         return render(request, 'mypageapp/user_profile.html', {'form':form, 'pet':pet},
         )
@@ -37,7 +37,6 @@ def create_pet(request):
                 profile = form.save(commit=False)
                 profile.user = User.objects.get(id=id)
                 profile.save()
-                # print(profile.pet_img)
                 return redirect('mypageapp:update_user', id = id)
             else:
                 return HttpResponse('작성 양식이 잘못되었습니다.')

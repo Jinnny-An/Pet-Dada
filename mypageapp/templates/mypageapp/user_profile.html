@@ -2,65 +2,99 @@
 <html>
     {% load static %}
     <head>
-        <link rel="stylesheet" href="{% static 'mypage_style.css' %}">
-        
+        <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/user.css' %}" /> -->
+        <link rel="stylesheet" type="text/css" href='{% static "common2.css"%}?after'>
+        <!-- <link rel="stylesheet" type="text/css" href='{% static "mypage_style.css"%}?after'> -->
     </head>
     
-<body class="work-stage">
-<form method = "post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class = "user_profile">
-        <div class="user_profile_img">
-            <label for="profile_img">
-                <img class="image" src="/media/{{ form.profile_img.value }}" >
+<body>
+    <div class="content_parent">
+        <!-- 사이드바 -->
+        <div class="left-side-bar">
+            <ul>
+                <br>
+                <img id="logo" src='{% static  "logo.png"%}'/>
+                <h2 id="proName">PET DADA</h2>
+                <li>
+                    <a href="#">마이페이지</a>
+                </li>
+                <li>
+                    <a href="#">게시판</a>
+                </li>
+                <li>
+                    <a href="#">로그인</a>
+                </li>
+            </ul>
         </div>
-          <input type="file" class="form-control" name="profile_img" id="profile_img"
-                value="{{ form.profile_img.value | default_if_none:'' }}">
-           </label>
-        
 
-        <div class="form-group">
-            <label for="user_name" class="form-label mt-4">이름</label>
-            <input type="text" class="form-control" name="user_name" id="user_name" placeholder="Name" 
-            value="{{ form.user_name.value | default_if_none:'' }}">    
-        </div> 
-      
-        <div class="form-group">
-            <label for="email" class="form-label mt-4">이메일</label>
-            <input type="text" class="form-control" name="email" id="email" placeholder="E-mail" 
-            value="{{ form.email.value | default_if_none:'' }}">    
-        </div> 
+        <!-- 유저 정보 -->
+        <div class="user_contents">
+            <div class="my_user_info">
+                <form class="user-form" method = "post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class = "user_profile">
+                        <div class="user_profile_img">
+                            <img class="image" src="/media/{{ form.profile_img.value }}" ><br>
+                            <label class="img-upload-lable" for="profile_img">UPLOAD                
+                            </label>
+                        </div>
+                        <input type="file" class="form-control" name="profile_img" id="profile_img"
+                                value="{{ form.profile_img.value | default_if_none:'' }}" style="display: none;">
 
-        <div class="form-group">
-            <label for="user_phone" class="form-label mt-4">연락처</label>
-            <input type="text" class="form-control" name="user_phone" id="user_phone" placeholder="Phone" 
-            value="{{ form.user_phone.value | default_if_none:'' }}">    
-        </div> 
+                        
 
-        <div class="form-group">
-            <label for="user_addr" class="form-label mt-4">주소</label>
-            <input type="text" class="form-control" name="user_addr" id="user_addr" placeholder="Address" 
-            value="{{ form.user_addr.value | default_if_none:'' }}">    
-        </div> 
-        <div class = "modify_btn">
-            <input type = "submit" value = "수정" class='btn btn-primary'>
+                        <div class="form-group">
+                            <label for="user_name" class="form-label mt-4">이름</label>
+                            <input type="text" class="form-control" name="user_name" id="user_name" placeholder="Name" 
+                            value="{{ form.user_name.value | default_if_none:'' }}">    
+                        </div> 
+                    
+                        <div class="form-group">
+                            <label for="email" class="form-label mt-4">이메일</label>
+                            <input type="text" class="form-control" name="email" id="email" placeholder="E-mail" 
+                            value="{{ form.email.value | default_if_none:'' }}">    
+                        </div> 
+
+                        <div class="form-group">
+                            <label for="user_phone" class="form-label mt-4">연락처</label>
+                            <input type="text" class="form-control" name="user_phone" id="user_phone" placeholder="Phone" 
+                            value="{{ form.user_phone.value | default_if_none:'' }}">    
+                        </div> 
+
+                        <div class="form-group">
+                            <label for="user_addr" class="form-label mt-4">주소</label>
+                            <input type="text" class="form-control" name="user_addr" id="user_addr" placeholder="Address" 
+                            value="{{ form.user_addr.value | default_if_none:'' }}">    
+                        </div> 
+                        <div class = "modify_btn">
+                            <input type = "submit" value = "수정" class='btn-btn-primary'>
+                            <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-4793b73c6332f7f14a9b6bba5d5e62748e9d1bd0b5c52d7af6376f3d1c625d7e.js"></script>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="my_pet_info">
+                <div class="pet_img">
+                <img class="image" src="/media/{{ pet.pet_img }}">
+                </div>
+                <div class="pet-title">MY PET</div>
+
+                <div class="pet-profile">
+                <h3 class="text-muted">PET : {{pet.pet_name}}</h3>
+                <h3 class="text-muted">성별 : {{pet.gender}}</h3>
+                <h3 class="text-muted">생일 : {{pet.age}}</h3>
+                <h3 class="text-muted">분류 : {{pet.size}}</h3>
+                <h3 class="text-muted">중성화 : {{pet.neutered}}</h3>
+                </div>
+                
+                <div class="btn-submit-pet">
+                <a href = "{% url 'mypageapp:create_pet' %}"><button type="submit" class='btn-btn-primary'>MY PET 등록하기</button></a>
+                <a href = "{% url 'mypageapp:update_pet' %}"><button type="submit" class='btn-btn-primary'>MY PET 정보수정</button></a>
+                </div>
+            </div>
         </div>
     </div>
-</form>
-<details>
-    <summary>MY PET</summary>
-    <div class="pet_profile">
-    <p>
-        <h3> {{pet.pet_img | default_if_none:''}}</h3>
-        <h3><small class="text-muted">PET : </small>{{pet.pet_name}}</h3>
-        <h3><small class="text-muted">성별 : </small>{{pet.gender}}</h3>
-        <h3><small class="text-muted">생일 : </small>{{pet.age}}</h3>
-        <h3><small class="text-muted">분류 : </small>{{pet.size}}</h3>
-        <h3><small class="text-muted">중성화 : </small>{{pet.neutered}}</h3>
-            <a href = "{% url 'mypageapp:create_pet' %}"><button type="submit" class='btn btn-primary'>MY PET 등록하기</button></a>
-            <a href = "{% url 'mypageapp:update_pet' %}"><button type="submit" class='btn btn-primary'>MY PET 정보수정</button></a>
-    </p>
-    </div>
-</details>
 </body>
 </html>

@@ -3,6 +3,12 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,django,python,visualstudiocode
 
 ### Django ###
+*/*/*/__pycache__/
+
+*/*/__pycache__/
+
+*/__pycache__/
+
 *.log
 *.pot
 *.pyc
