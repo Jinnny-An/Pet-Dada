@@ -110,7 +110,7 @@ def activate(request, uid64, token,*args, **kwargs):
     try:
         uid = force_str(urlsafe_base64_decode(uid64))
         user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExsit):
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and member_activation_token.check_token(user, token):
         user.is_active = True

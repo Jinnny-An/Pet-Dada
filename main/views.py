@@ -26,7 +26,7 @@ def show_main(request):
         temp = {'store_name': s.store_name, 'store_addr': s.store_addr, 'phone': s.store_phone, 'time': s.time, 'intro': s.intro, 'category': s.c_id.c_name}
         result.append(temp)
     storeJson = json.dumps(result)
-    return render(request, 'main/pet_main.html', {'store':storeJson'})
+    return render(request, 'main/pet_main.html', {'store':storeJson})
 
 def show(request):
     store_list = Store.objects.filter(c_id=2)

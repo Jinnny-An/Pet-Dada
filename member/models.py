@@ -11,3 +11,10 @@ class User(models.Model):
     user_add = models.CharField(max_length=250)
     user_phone = models.CharField(max_length=50)
     date_joined = models.DateTimeField()
+    class Meta:
+        db_table = 'Users'
+        app_label = 'member'
+        managed = False
+    
+    def __str__(self):
+        return self.user_name

@@ -10,7 +10,7 @@ urlpatterns = [
     path('member/', include('member.urls')),
     path('home/', views.home),
     path('back/', views.back),
-    path('resignup/', views.resignup, name="resignup"),
-    path('mypage', include('mypageapp.urls')),
+    # path('resignup/', views.resignup, name="resignup"),
+    path('mypage/', include('mypageapp.urls')),
     
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

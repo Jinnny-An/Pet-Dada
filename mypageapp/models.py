@@ -7,6 +7,12 @@ class User(models.Model):
     user_phone = CharField(max_length=11)
     user_addr = CharField(max_length=250)
     profile_img = models.FileField(upload_to='', null=True, blank = True)
+    class Meta:
+        db_table = 'Users'
+        app_label = 'mypageapp'
+        managed = False 
+    
+    
     def __str__(self):
         return self.user_name
 
@@ -19,6 +25,7 @@ class Pet(models.Model):
     neutered = CharField(max_length=1, null=True, blank=True)
     pet_img = models.FileField(upload_to='pet_img', null=True, blank = True)
     user = models.OneToOneField(User,on_delete=models.CASCADE, null = True, blank = True)
+    
     def __str__(self):
         return self.pet_name
 
