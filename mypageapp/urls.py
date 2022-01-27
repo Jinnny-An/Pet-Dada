@@ -8,9 +8,9 @@ urlpatterns = [
     # path('user/<int:id>/', views.update_user, name = 'update_user'),
     path('user/', views.update_user, name = 'update_user'),
 
-    path('user/<int:id>/pet/', views.create_pet, name ='create_pet'),
+    path('user/pet/', views.create_pet, name ='create_pet'),
 
-    path('update/<int:id>/', views.update_pet, name='update_pet'),
+    path('update/', views.update_pet, name='update_pet'),
 
 
 ]
