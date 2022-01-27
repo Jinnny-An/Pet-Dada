@@ -51,7 +51,7 @@
     <summary>MY PET</summary>
     <div class="pet_profile">
     <p>
-        <img class="image" src="/media/{{ form.profile_img.value }}" >
+        {% comment %} <img class="image" src="/media/{{ form.profile_img.value }}" > {% endcomment %}
         <img class="image" src="{{ pet.pet_img.value }}" >
         {% comment %} <h3> {{pet.pet_img.value | default_if_none:''}}</h3> {% endcomment %}
         <h3><small class="text-muted">PET : </small>{{pet.pet_name}}</h3>
