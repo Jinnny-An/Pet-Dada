@@ -11391,10 +11391,13 @@ fieldset:disabled .btn {
 
 body {
     background: rgb(233, 232, 212);
-    display: flex;
+     /* display: flex; */
     justify-content: center;
     align-items: center;
-    padding:120px;
+    padding-top: 100px;
+    padding-right:550px;
+    padding-bottom:550px;
+    padding-left:550px;
   }
   
   .user_profile {
@@ -11422,6 +11425,16 @@ body {
     overflow:hidden;
     border: 4px #57422d;
     
+  }
+
+  .folded{
+    justify-content: left;
+    float:left;
+    padding-top: 0px;
+    margin-top: 200px;
+    margin-left:50px;
+    padding-right : 100px;
+    overflow-anchor: none
   }
 
 
