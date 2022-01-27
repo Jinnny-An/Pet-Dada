@@ -17,15 +17,6 @@ def insert(request):
     # Category(c_id=7,c_name='미용').save()
     # Category(c_id=8,c_name='숙박시설').save()
 
-    # Store(
-    #     store_name='온사이드',
-    #     store_addr='경기 남양주시 퇴계원읍 별내2로 203-11',
-    #     store_phone='031-528-5399',
-    #     time='매일 11:00 - 20:00 , 19:00 라스트오더',
-    #     intro="★강아지입장료 소형4,000원, 중형5,000원★<br>★남아, 미중성여아 매너벨트 필수착용★<br>★노키즈존입니다 (중학생이상/부모님동반)★<br>★15kg이하 / 5차접종이상 입장가능★<br>★대형견, 진도견은 입장을 제한합니다★<br><br> - 1층 / 인조잔디, 카페 (디저트, 떡볶이, 볶음밥)<br>/ 강아지화식(닭, 소고기, 연어, 파스타)<br>- 2층 / 애견미용, 애견호텔 (예약제)<br> - 3층 / 야외루프탑 (잔디)",
-    #     c_id=2
-    # ).save()
-
     return HttpResponse("데이터 입력 완료")
 
 def show_main(request):
@@ -40,6 +31,7 @@ def show(request):
         {'store_list':store_list}
     )
 
+
 @csrf_exempt
 def ajaxGet(request):
     key = request.GET.get('key')
@@ -47,23 +39,39 @@ def ajaxGet(request):
 
     store_list = Store.objects.filter(c_id=key)
     print(store_list)
-    res = []
-
-    for c in store_list:
-        temp = {"store_name": c.store_name,
-                "store_addr": c.store_addr,
-                "store_phone": c.store_phone,
-                "store_intro": c.intro
-                }
-        res.append(temp)
 
     out = ''
+    num = 0     # 가게별로 설명창이 열리게 설정하기 위해서 num변수 추가
+
     for store in store_list:
-        out += '<div class="list-shop-content"> <h5>'
-        out += store.store_name + '</h5><br><span>'
-        out += store.store_addr + '</span><br><span>'
-        out += store.store_phone + '</span><br><pre>'
-        out += store.intro + '</pre>'
+        img_path = str(store.store_img).lstrip('/main')
+
+        out += '<div class="list-shop-content"> <div class="title_img"><div class="store_title">'
+        out += store.store_name + '</div><img id="store-image" src="/'
+        out += img_path + '"/></div><br><span>🏠 '
+        out += store.store_addr + '</span><br><pre>'
+        out += store.time + '</pre><span>☎ '
+        out += store.store_phone + '</span><br>'
+        out += '<button class="btn-btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample'+str(num)+'" aria-expanded="false" aria-controls="collapseExample'+str(num)+'"> ▽ </button>'
+        out += '<div class="collapse" id="collapseExample'+str(num)+'"> <div class="card card-body"> <pre>'
+        out += store.intro + '</pre></div></div></div><hr>'
+
+        num += 1
+
+    # for store in store_list:
+    #     img_path = str(store.store_img).replace('main/static/', '')
+
+    #     out += '<div class="list-shop-content"> <div class="store_title">'
+    #     out += store.store_name + '</div><br><img id="store-image" src="{% static ' + "'"
+    #     out += img_path + "'" + ' %}" /><br><span>'
+    #     out += store.store_addr + '</span><br><pre>'
+    #     out += store.time + '</pre><span>'
+    #     out += store.store_phone + '</span><br>'
+    #     out += '<button class="btn-btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample'+str(num)+'" aria-expanded="false" aria-controls="collapseExample'+str(num)+'"> ▽ </button>'
+    #     out += '<div class="collapse" id="collapseExample'+str(num)+'"> <div class="card card-body"> <pre>'
+    #     out += store.intro + '</pre></div></div></div><hr>'
+
+    #     num += 1
 
     return HttpResponse(out)
     # return render(request, 'main/pet_main.html', {'store_list':res})
