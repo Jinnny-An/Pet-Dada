@@ -28,11 +28,15 @@ def back(request):
 
 def signup(request):
     if request.method == 'POST':
+        if User.objects.filter(username=request.POST['username']).exists(): #아이디 중복 체크
+            return render(request, 'member/signup_error.html')
         if request.POST['password1'] ==request.POST['password2']:
             user = User.objects.create_user(
-                username=request.POST['username'], 
+                username=request.POST['username'],
                 password=request.POST['password1'],
+                last_name = request.POST['user_name'],
                 email=request.POST['email'],
+                first_name=request.POST['user_add'],
                 )
             # 중복아이디 점검 ㅠㅠ    
             # if request.POST['username'] == auth.authenticate('username'):
@@ -86,7 +90,8 @@ def login(request):
         # 성공
         if user is not None:
             auth.login(request, user)
-            return redirect('/home')
+            request.session['id'] = user.id
+            return redirect('/main/pet_main/')
         # 실패
         else:
             return render(request, 'member/back.html')
@@ -101,7 +106,8 @@ def logout(request):
     if request.method == 'POST':
         # 유저 로그아웃
         auth.logout(request)
-        return redirect('/home')
+        # /home/ > 로그인 화면으로 보내기
+        return redirect('/home/')
     return render(request, 'member/signup.html')
 
 
@@ -116,7 +122,7 @@ def activate(request, uid64, token,*args, **kwargs):
         user.is_active = True
         user.save()
         auth.login(request, user)
-        return redirect("/home")
+        return redirect("/main/pet_main/")
     else:
         return render(request, 'member/login.html', {'error' : '계정 활성화 오류'})
 

@@ -5,7 +5,8 @@ from . import views
 app_name = 'mypageapp'
 
 urlpatterns = [
-    path('user/<int:id>/', views.update_user, name = 'update_user'),
+    # path('user/<int:id>/', views.update_user, name = 'update_user'),
+    path('user/', views.update_user, name = 'update_user'),
 
     path('user/<int:id>/pet/', views.create_pet, name ='create_pet'),
 
