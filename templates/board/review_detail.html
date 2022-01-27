@@ -14,8 +14,8 @@
 <h2 class="border-bottom py-2"></h2>
 <div class="card mb-3">
     {% comment %} <img src="..." class="card-img-top" alt="No Image"> {% endcomment %}
-    <div class="card-body">
-        <h5 class="card-title">{{review.subject}}</h5>
+    <div class="card card-body">
+        <h4 class="card-title">{{review.subject}}</h4>
         <div class="card-text" >
             <img class="imange" src="/media/{{review.file}}" width='50%'></div>
             {{review.content|mark}}
@@ -45,8 +45,8 @@
     <h5 class="border-bottom my-3 py-2">{{review.comment_set.count}}개의 답변이 있습니다.</h5>
     {% for comment in review.comment_set.all %}
     <div class="card my-3">
-        <div class="card-body">
-            <div class="card-text">
+        <div class="card bg-secondary card-body">
+            <div class=" card-text">
                 <div class="media">
                 {% comment %} <img src="..." class="align-self-start mr-3" alt="No Image"><!-- 댓글 이미지 링크 src=에 등록 --> {% endcomment %}
                 <div class="media-body">
