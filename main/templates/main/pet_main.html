@@ -3,6 +3,20 @@
 <html lang="en">
 
 <head>
+    <!-- 커스텀 오버레이 스타일 -->
+    <style>
+        .wrap {position: absolute;left: 0;bottom: 40px;width: 340px;height: 180px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+        .wrap * {padding: 0;margin: 0;}
+        .wrap .info {width: 340px;height: 150px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;background: #fff;}
+        .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+        .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+        .info .close {position: absolute;top: 10px; right:10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+        .info .close:hover {cursor: pointer;}
+        .info .body {position: relative;}
+        .info .desc {position: relative;margin: 10px 0 40px 0;height: 75px;}
+        .desc .ellipsis {white-space: normal;}
+        .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    </style>
     <!-- 부트스트랩 css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href='{% static "common.css"%}?after'>
@@ -24,7 +38,7 @@
                 <a href="#">마이페이지</a>
             </li>
             <li>
-                <a href="/second/show/">게시판</a>
+                <a href="#">게시판</a>
             </li>
             <li>
                 <a href="#">로그인</a>
@@ -34,13 +48,18 @@
     <!-- 콘텐츠 -->
     <div class="content-area">
         <div class="list-shop" id="list-view">
-            <br>
             <!-- 가게 목록~~ -->
-
         </div>
         <!-- 지도 -->
-        <div class="map">
-            지도/////////////////////
+        <div id="map" class="map">
+        </div>
+        <!-- 검색, 현위치 -->
+        <div id = "search">
+            <form onsubmit="searchPlace(); return false;">
+                검색: <input type="text" id="addr_cate" size="15"> 
+                <button type="submit">검색하기</button>
+                <input type = "button" value = "위치" onclick="curr_place()">
+            </form>
         </div>
     </div>
 
@@ -50,23 +69,254 @@
           카테고리
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" id="1" onclick="show_list(this.id)">식당</a></li>
-          <li><a class="dropdown-item" id="2" onclick="show_list(this.id)">카페</a></li>
-          <li><a class="dropdown-item" id="3" onclick="show_list(this.id)">병원</a></li>
-          <li><a class="dropdown-item" id="4" onclick="show_list(this.id)">백화점</a></li>
-          <li><a class="dropdown-item" id="5" onclick="show_list(this.id)">반려용품 가게</a></li>
-          <li><a class="dropdown-item" id="6" onclick="show_list(this.id)">공원</a></li>
-          <li><a class="dropdown-item" id="7" onclick="show_list(this.id)">미용</a></li>
-          <li><a class="dropdown-item" id="8" onclick="show_list(this.id)">숙박시설</a></li>
+          <li><a class="dropdown-item" id="1" onclick="show_list(this.id); category_click('식당');">식당</a></li>
+          <li><a class="dropdown-item" id="2" onclick="show_list(this.id); category_click('카페');">카페</a></li>
+          <li><a class="dropdown-item" id="3" onclick="show_list(this.id); category_click('병원');">병원</a></li>
+          <li><a class="dropdown-item" id="4" onclick="show_list(this.id); category_click('백화점');">백화점</a></li>
+          <li><a class="dropdown-item" id="5" onclick="show_list(this.id); category_click('반려용품 가계');">반려용품 가게</a></li>
+          <li><a class="dropdown-item" id="6" onclick="show_list(this.id); category_click('공원');">공원</a></li>
+          <li><a class="dropdown-item" id="7" onclick="show_list(this.id); category_click('미용');">미용</a></li>
+          <li><a class="dropdown-item" id="8" onclick="show_list(this.id); category_click('숙박시설');">숙박시설</a></li>
         </ul>
-      </div>
+    </div>
 
-      <!-- 부트스트랩 js -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- 부트스트랩 js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       
-      <!-- ajax : GET -->
-      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- ajax : GET -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+    <!-- 카카오 지도 API -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1ce71899d408f9dbab6a0b42f632f125&libraries=services"></script>
+
+    <script>
+        var markers = [];
+        var stores = JSON.parse("{{store|escapejs}}");
+    
+        //지도 생성
+        var mapContainer = document.getElementById('map'),
+            mapOption = { 
+                center: new kakao.maps.LatLng(37.656771, 127.122762),
+                level: 3 
+            };
+    
+    
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+    
+        var geocoder = new kakao.maps.services.Geocoder();
+    
+        //지도에 있는 마커들 지우기
+        function removeMarker() {
+            for ( var i = 0; i < markers.length; i++ ) {
+                markers[i].setMap(null);
+            }
+            markers = [];
+        }
+    
+        //카테고리 클릭시 함수
+        function category_click(c){
+            removeMarker();
+            stores.forEach(function(store){
+                if (store['category'] === c){
+                    geocoder.addressSearch(store['store_addr'], function(result, status) {
+    
+                        // 정상적으로 검색이 완료됐으면 
+                        if (status === kakao.maps.services.Status.OK) {
+            
+                            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            
+                            // 결과값으로 받은 위치를 마커로 표시합니다
+                            var marker = new kakao.maps.Marker({
+                                map: map,
+                                position: coords,
+                                clickable: true
+                            });
+                            marker.setMap(map);
+                            markers.push(marker);
+
+                            // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+                            kakao.maps.event.addListener(marker, 'click', function() {
+                                var content = '<div class="wrap">' + 
+                                        '    <div class="info">' + 
+                                        '        <div class="title">' + store['store_name'] +
+                                        '        <div class="close" title="닫기"></div>' +
+                                        '        </div>' + 
+                                        '        <div class="body">' + 
+                                        '            <div class="desc">' + 
+                                        '                <div class="ellipsis"><b>주소</b>: ' + store['store_addr'] + '</div>'  + 
+                                        '                <div class="ellipsis"><b>연락처</b>: ' + store['phone'] + '</div>' +
+                                        '                <div class="ellipsis"><b>영업시간</b>: ' + store['time'] + '</div>' +
+                                        '                <div class="ellipsis"><b>소개</b>: ' + store['intro'] + '</div>' + 
+                                        '            </div>' + 
+                                        '        </div>' + 
+                                        '    </div>' +    
+                                        '</div>';
+                                // 커스텀 오버레이를 생성합니다
+                                var overlay = new kakao.maps.CustomOverlay({
+                                    content: content,
+                                    map: map,
+                                    position: marker.getPosition()       
+                                });
+                                overlay.setMap(map);
+                                kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+                                    overlay.setMap(null);
+                                });
+                            });
+                        }
+                        map.panTo(coords); 
+                    });
+                }
+            });
+        }
+    
+        //현위치로 가기
+        function curr_place(){
+            removeMarker();
+            show_list(9);
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lon = position.coords.longitude;
+
+                    var locPosition = new kakao.maps.LatLng(lat, lon);
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: locPosition,
+                    });
+                    marker.setMap(map);
+                    markers.push(marker);
+                    map.panTo(locPosition);
+                })
+            } else {
+                map.setCenter(new kakao.maps.LatLng(37.656771, 127.122762));
+            }
+        }
+    
+        //지도 검색 기능
+        function searchPlace(){
+            removeMarker();
+
+            var addr_cate = document.getElementById('addr_cate').value;
+            var category = ["식당", "카페", "병원", "백화점", "반려용품 가계", "공원", "미용", "숙박시설"];
+            var category_id = {"식당":1,"카페":2,"병원":3,"백화점":4,"반려용품 가계":5, "공원":6, "미용":7, "숙박시설": 8};
+            
+            if (category.includes(addr_cate)){
+                stores.forEach(function(store){
+                    if (store['category'] === addr_cate){
+                        show_list(category_id[addr_cate]);
+                        geocoder.addressSearch(store['store_addr'], function(result, status) {
+        
+                            // 정상적으로 검색이 완료됐으면 
+                            if (status === kakao.maps.services.Status.OK) {
+                
+                                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                
+                                // 결과값으로 받은 위치를 마커로 표시합니다
+                                var marker = new kakao.maps.Marker({
+                                    map: map,
+                                    position: coords,
+                                    clickable: true
+                                });
+                                marker.setMap(map);
+                                markers.push(marker);
+
+                                // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+                                kakao.maps.event.addListener(marker, 'click', function() {
+                                    var content = '<div class="wrap">' + 
+                                        '    <div class="info">' + 
+                                        '        <div class="title">' + store['store_name'] +
+                                        '        <div class="close" title="닫기"></div>' +
+                                        '        </div>' + 
+                                        '        <div class="body">' + 
+                                        '            <div class="desc">' + 
+                                        '                <div class="ellipsis"><b>주소</b>: ' + store['store_addr'] + '</div>'  + 
+                                        '                <div class="ellipsis"><b>연락처</b>: ' + store['phone'] + '</div>' +
+                                        '                <div class="ellipsis"><b>영업시간</b>: ' + store['time'] + '</div>' +
+                                        '                <div class="ellipsis"><b>소개</b>: ' + store['intro'] + '</div>' + 
+                                        '            </div>' + 
+                                        '        </div>' + 
+                                        '    </div>' +    
+                                        '</div>';
+                                    // 커스텀 오버레이를 생성합니다
+                                    var overlay = new kakao.maps.CustomOverlay({
+                                        content: content,
+                                        map: map,
+                                        position: marker.getPosition()       
+                                    });
+                                    overlay.setMap(map);
+                                    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+                                        overlay.setMap(null);
+                                    });
+                                });
+                            }
+                            map.panTo(coords); 
+                        });
+                    }
+                });
+            } else {
+                var cnt = 0;
+                stores.forEach(function(store){
+                    if (store['store_addr'] === addr_cate || store['store_name'] === addr_cate){
+                        cnt++;
+                        geocoder.addressSearch(store['store_addr'], function(result, status) {
+        
+                            // 정상적으로 검색이 완료됐으면 
+                            if (status === kakao.maps.services.Status.OK) {
+                
+                                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                
+                                // 결과값으로 받은 위치를 마커로 표시합니다
+                                var marker = new kakao.maps.Marker({
+                                    map: map,
+                                    position: coords,
+                                    clickable: true
+                                });
+                                marker.setMap(map);
+                                markers.push(marker);
+        
+                                // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+                                kakao.maps.event.addListener(marker, 'click', function() {
+                                    var content = '<div class="wrap">' + 
+                                        '    <div class="info">' + 
+                                        '        <div class="title">' + store['store_name'] +
+                                        '        <div class="close" title="닫기"></div>' +
+                                        '        </div>' + 
+                                        '        <div class="body">' + 
+                                        '            <div class="desc">' + 
+                                        '                <div class="ellipsis"><b>주소</b>: ' + store['store_addr'] + '</div>'  + 
+                                        '                <div class="ellipsis"><b>연락처</b>: ' + store['phone'] + '</div>' +
+                                        '                <div class="ellipsis"><b>영업시간</b>: ' + store['time'] + '</div>' +
+                                        '                <div class="ellipsis"><b>소개</b>: ' + store['intro'] + '</div>' + 
+                                        '            </div>' + 
+                                        '        </div>' + 
+                                        '    </div>' +    
+                                        '</div>';
+                                    // 커스텀 오버레이를 생성합니다
+                                    var overlay = new kakao.maps.CustomOverlay({
+                                        content: content,
+                                        map: map,
+                                        position: marker.getPosition()       
+                                    });
+                                    overlay.setMap(map);
+                                    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+                                        overlay.setMap(null);
+                                    });
+                                });
+                            }
+                            map.panTo(coords);
+                        });
+                    }
+                });
+                if (cnt === 0) {
+                    alert("주소를 다시 입력해주세요!");
+                    return false;
+                }
+                show_list(9);
+            }
+            
+        }
+
+    </script>
     </body>
 
     <script>
@@ -79,16 +329,15 @@
             ajax.then(function (response) {
                 return response.text();
             }).then(function (result) {
-                console.log("Log: ", result);
+                console.log("Log: " , result);
                 console.log(logo);
 
-                var view = document.getElementById('list-view');
+                var view = document.getElementById('list-view')
                 view.innerHTML = result;
 
                 var img = document.getElementById('store-image');
                 console.log(img);
             });
         }
-
     </script>
 </html>
