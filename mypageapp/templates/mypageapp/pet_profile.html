@@ -1,52 +1,37 @@
 <html>
-    {% load static %}
-    <head>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <h3> MY PET PROFILE </h3>
-    </head>
-<form method='post' enctype="multipart/form-data">
+  {% load static %}
+  <head>
+      <link rel="stylesheet" href="{% static 'mypage_style.css' %}">
+  </head>
+
+<form method='post' enctype="multipart/form-data" class="whole-contents">
+    <div class="page-title"> MY PET PROFILE </div>
     {% csrf_token %}
     
-    <div class="form-group">
-        <label for="pet_img">
-        <img class="image" src="/media/pet_img/{{ form.pet_img.value }}"/>
+    <div class="form-group" id="pet-upload-image">
+        <img class="image" src="/media/{{ form.pet_img.value }}"/>
+        <label class="img-upload-label" for="pet_img">UPLOAD</label>
         <input type="file" class="form-control" name="pet_img" id="pet_img"
-            value="{{ form.pet_img.value | default_if_none:''}}">
-        </label>
+            value="{{ form.pet_img.value | default_if_none:''}}" style="display: none;">
+        
     </div>
 
     <div class="form-group">
-        <label for="pet_name" class="form-label mt-4">MY PET</label>
+        <label for="pet_name" class="form-label-mt-4">MY PET</label>
         <input type="text" class="form-control" name="pet_name" id="pet_name" placeholder="Pet Name" 
         value="{{ form.pet_name.value | default_if_none:'' }}">    
     </div>
 
-    <fieldset class="form-group">
-        <label for="gender" class="form-label mt-4">성별</label>
-        <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="gender" id="male" value="M" checked="">
-            Male
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="gender" id="female" value="F">
-            Female
-          </label>
-        </div>
-    </fieldset>
-
     <div class="form-group">
-        <label for="age" class="form-label mt-4">생일</label>
+        <label for="age" class="form-label-mt-4">생일</label>
         <input type="text" class="form-control" name="age" id="age" placeholder="YYYY-MM-DD" 
         value="{{ form.age.value | default_if_none:'' }}">    
     </div>
   
 
     <fieldset class="form-group">
-        <label for="size" class="form-label mt-4">분류</label>
-        <div class="form-check">
+        <label for="size" class="form-label-mt-4" id="size-radio-label">분류</label>
+        <div class="form-check" id="size-radio">
           <label class="form-check-label">
             <input type="radio" class="form-check-input" name="size" id="S" value="S" checked="">
             소형견
@@ -65,9 +50,25 @@
             </label>
         </div>
     </fieldset>
+
+    <fieldset class="form-group" id="gender-radio">
+      <label for="gender" class="form-label-mt-4" id="gender-radio-label">성별</label>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="gender" id="male" value="M" checked="">
+          Male
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="gender" id="female" value="F">
+          Female
+        </label>
+      </div>
+    </fieldset>
   
-    <fieldset class="form-group">
-        <label for="neutered" class="form-label mt-4">중성화</label>
+    <fieldset class="form-group" id="neutered-radio">
+        <label for="neutered" class="form-label-mt-4" id="neutered-radio-label">중성화</label>
         <div class="form-check">
           <label class="form-check-label">
             <input type="radio" class="form-check-input" name="neutered" id="Y" value="Y">
@@ -84,10 +85,10 @@
     <!--유저 ID값을 넘김-->
     <input type = "hidden" id = "user" value = "{{form.user.value}}">
 
-
-    <input type = "submit" value = "등록" class='btn btn-primary'>
-    <input type = "reset" value = "취소" class='btn btn-primary' onclick="history.back(-1);">
-
+    <div class="btn-submit-pet">
+      <input type = "submit" value = "등록" class='btn-btn-primary' id="left-submit-btn">
+      <input type = "reset" value = "취소" class='btn-btn-primary' onclick="history.back(-1);">
+    </div>
 
 </form>
 </html>

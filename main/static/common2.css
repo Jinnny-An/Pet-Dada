@@ -1,0 +1,450 @@
+body,
+ul,
+li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#logo {
+    padding: 0;
+    margin: 0;
+    height: 120px;
+    width: 120px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    font-size: larger;
+}
+
+.content_parent {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.left-side-bar > ul ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: #fef0D6;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    background: #fef0d6c7;
+}
+
+#proName {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.left-side-bar {
+    background-color: #fef0D6;
+    color: #57422D;
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    /* 태그의 우선순위를 정함, 사이드 바가 다른 div 위로 올라오도록 설정 */
+    /* z-index: 1; */
+}
+
+.left-side-bar > .status-ico {
+    text-align: right;
+    padding: 10px;
+}
+
+.left-side-bar > ul li {
+    position: relative;
+}
+
+.left-side-bar ul {
+    font-weight: bold;
+    text-align: center;
+    padding: 0;
+}
+
+.left-side-bar ul > li > a {
+    display: block;
+    padding: 10px;
+    white-space: nowrap;
+}
+
+
+.left-side-bar ul > li:hover ul {
+    display: block;
+}
+/* 메뉴에 마우스 올렸을 때 바뀌는 색깔 */
+.left-side-bar ul > li:hover > a {
+    background-color: #F0EAD4;
+}
+
+.left-side-bar > .status-ico > span:last-child {
+    display: none;
+}
+
+.left-side-bar:hover > .status-ico > span:last-child {
+    display: block;
+}
+
+.left-side-bar:hover > .status-ico > span:first-child {
+    display: none;
+}
+
+
+/* 개인정보  */
+.user_contents {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 0 220px;
+    height: 100%;
+    width: 100%;
+    
+    padding:0;
+
+}
+
+.my_user_info, .my_pet_info {
+    width: 500px;
+    height: 650px;
+    border: 8px solid white;
+    margin-top: 50px;
+    margin-right: 0px;
+    display: flex;
+}
+.my_pet_info{
+    margin-left: 70px;
+    flex-direction: column;
+}
+
+.user_profile {
+    background: transparent;
+}
+
+.user_profile_img{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    object-fit: cover;
+    margin: 0;
+    width: 500px;
+    height: 320px; 
+    border-radius:10%;
+    overflow:hidden;
+}
+
+#profile_img {
+    width: 400px;
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.image {
+    width: 250px;
+    height: 250px;
+    margin-top: 15px;
+}
+
+.img-upload-lable {
+    width: 90px;
+    height: 30px;
+    background-color: #6b5744;
+    font-weight: bold;
+    color: white;
+    font-size: 14x;
+    border: 2px solid #6b5744;
+    border-radius: 10px;
+}
+
+.form-group > label {
+    width: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 20px;
+    margin-top: 7px;
+}
+
+.form-control {
+    margin: 0;
+}
+
+.form-group {
+    width: 500px;
+    margin-top: 20px;
+    background-color: transparent;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.modify_btn {
+    margin-top: 30px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100px;
+}
+.btn-btn-primary{
+    background-color: transparent;
+    width: 145px;
+    height: 50px;
+    font-size: 16px;
+    border-color: lightgray;
+}
+
+.form-control {
+    display: block;
+    width: 45%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .form-control {
+        transition: none;
+    }
+}
+
+.form-control[type="file"] {
+    overflow: hidden;
+}
+  
+.form-control[type="file"]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+}
+
+.form-control:focus {
+    color: #333;
+    background-color: #fff;
+    border-color: #f4aa90;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(233, 84, 32, 0.25);
+}
+
+.form-control::-webkit-date-and-time-value {
+    height: 1.5em;
+}
+  
+.form-control::-webkit-input-placeholder {
+    color: #868e96;
+    opacity: 1;
+}
+
+.form-control::-moz-placeholder {
+    color: #868e96;
+    opacity: 1;
+}
+
+.form-control:-ms-input-placeholder {
+    color: #868e96;
+    opacity: 1;
+}
+
+.form-control::-ms-input-placeholder {
+    color: #868e96;
+    opacity: 1;
+}
+
+.form-control::placeholder {
+    color: #868e96;
+    opacity: 1;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+  
+.form-control::file-selector-button {
+    padding: 0.375rem 0.75rem;
+    margin: -0.375rem -0.75rem;
+    -webkit-margin-end: 0.75rem;
+    -moz-margin-end: 0.75rem;
+    margin-inline-end: 0.75rem;
+    color: #333;
+    background-color: #e9ecef;
+    pointer-events: none;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    border-inline-end-width: 1px;
+    border-radius: 0;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .form-control::file-selector-button {
+        transition: none;
+    }
+}
+
+.form-control:hover:not(:disabled):not([readonly])::file-selector-button {
+    background-color: #dde0e3;
+}
+
+.form-control::-webkit-file-upload-button {
+    padding: 0.375rem 0.75rem;
+    margin: -0.375rem -0.75rem;
+    -webkit-margin-end: 0.75rem;
+    margin-inline-end: 0.75rem;
+    color: #333;
+    background-color: #e9ecef;
+    pointer-events: none;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    border-inline-end-width: 1px;
+    border-radius: 0;
+    -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .form-control::-webkit-file-upload-button {
+        -webkit-transition: none;
+        transition: none;
+    }
+}
+  
+.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+    background-color: #dde0e3;
+}
+
+.form-control-plaintext {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0;
+    margin-bottom: 0;
+    line-height: 1.5;
+    color: #333;
+    background-color: transparent;
+    border: solid transparent;
+    border-width: 1px 0;
+}
+
+.form-control-plaintext.form-control-sm, .form-control-plaintext.form-control-lg {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.form-control-sm {
+    min-height: calc(1.5em + 0.5rem + 2px);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 0.2rem;
+}
+
+.form-control-sm::file-selector-button {
+    padding: 0.25rem 0.5rem;
+    margin: -0.25rem -0.5rem;
+    -webkit-margin-end: 0.5rem;
+    -moz-margin-end: 0.5rem;
+    margin-inline-end: 0.5rem;
+}
+  
+.form-control-sm::-webkit-file-upload-button {
+    padding: 0.25rem 0.5rem;
+    margin: -0.25rem -0.5rem;
+    -webkit-margin-end: 0.5rem;
+    margin-inline-end: 0.5rem;
+}
+
+.form-control-lg {
+    min-height: calc(1.5em + 1rem + 2px);
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: 0.3rem;
+}
+
+.form-control-lg::file-selector-button {
+    padding: 0.5rem 1rem;
+    margin: -0.5rem -1rem;
+    -webkit-margin-end: 1rem;
+    -moz-margin-end: 1rem;
+    margin-inline-end: 1rem;
+}
+
+.form-control-lg::-webkit-file-upload-button {
+    padding: 0.5rem 1rem;
+    margin: -0.5rem -1rem;
+    -webkit-margin-end: 1rem;
+    margin-inline-end: 1rem;
+}
+
+textarea.form-control {
+    min-height: calc(1.5em + 0.75rem + 2px);
+}
+
+textarea.form-control-sm {
+    min-height: calc(1.5em + 0.5rem + 2px);
+}
+
+textarea.form-control-lg {
+    min-height: calc(1.5em + 1rem + 2px);
+}
+
+.form-control-color {
+    width: 3rem;
+    height: auto;
+    padding: 0.375rem;
+}
+  
+.form-control-color:not(:disabled):not([readonly]) {
+    cursor: pointer;
+}
+
+.form-control-color::-moz-color-swatch {
+    height: 1.5em;
+    border-radius: 0.25rem;
+}
+
+.form-control-color::-webkit-color-swatch {
+    height: 1.5em;
+    border-radius: 0.25rem;
+}
+
+/* 펫 정보 */
+.pet-title {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.pet_img{
+    flex-direction: column;
+    text-align: center;
+    
+}
+.pet-profile {
+    padding-top: 20px;
+}
+.text-muted{
+    margin-left: 80px;
+}
+
+.btn-submit-pet {
+    margin-top: 16px;
+    text-align: center;
+}

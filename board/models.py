@@ -1,5 +1,5 @@
 from pickle import TRUE
-from typing_extensions import Required
+#from typing_extensions import Required
 from django.db import models
 
 

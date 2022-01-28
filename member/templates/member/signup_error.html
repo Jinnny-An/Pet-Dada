@@ -1,4 +1,4 @@
- <html lang="en">
+<html lang="en">
    <head>
        
         <title>Pet dada login</title>
@@ -9,24 +9,28 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         
         {% load static %}
-        <link rel="stylesheet" href="{% static "style2.css" %}">
+        <link rel="stylesheet" href="{% static 'style3.css' %}">
 
 </head>
 <body>
    <div class ="login">
       
          <div class="account-login">
-            <h1><center>Pet dada</h1>
+            
             <form method="post" class="login-form" action="{% url 'member:login' %}">
-               <div style="color: #57422D;">
+               <h1><center>Pet dada</h1>
+               
+               <br> <br>
+               <div style="color: #57422D;"
 
-               <h1><font size='5.5'><center>Password is Incorrect.</h1>
+               <h1><font size = '5.5'><center>The ID that already exists.<br>
+                  
                <div class="form-group">
                </div>
                </div>
                <div class="form-group">
                
-               <h2><p> <center> <font size = '5'>  <a href="/member/signup/">Sign up</a></p></h2>
+               <h2><p> <cneter> <font size = '5'>  <a href="/member/login/">Sign up </a></p></h2>
                </div>
 
 
@@ -41,4 +45,4 @@
    </div>
 </body>
 
-</html>  
+</html> 
