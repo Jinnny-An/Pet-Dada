@@ -60,9 +60,10 @@
         <!-- 검색, 현위치 -->
         <div id = "search">
             <form onsubmit="searchPlace(); return false;">
-                검색: <input type="text" id="addr_cate" size="15"> 
-                <button type="submit">검색하기</button>
-                <input type = "button" value = "위치" onclick="curr_place()">
+                검색  <input type="text" id="addr_cate" size="15"> 
+                <button class="btn-search" type="submit">검색하기</button>
+                <label for="user-place" class="user-place-label">현재 위치</label>
+                <input id="user-place" type = "button" onclick="curr_place()" style="display: none;">
             </form>
         </div>
     </div>
