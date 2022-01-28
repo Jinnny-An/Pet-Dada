@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.utils import timezone
+from django.contrib.auth import get_user_model
 
 #활성화함수위해
 from django.contrib.sites.shortcuts import get_current_site
@@ -25,43 +26,117 @@ def back(request):
     return HttpResponse('<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><font size ="10"><p><hi><center><b><u>아래 사이트를 클릭 후 재로그인해주세요.</u><br> -Petdada- <br> <font size ="15"><a href="/member/login/">LOGIN</a>')   
 
 #회원가입#
+from .forms import SignupForm
 
 def signup(request):
-    if request.method == 'POST':
-        if User.objects.filter(username=request.POST['username']).exists(): #아이디 중복 체크
-            return render(request, 'member/signup_error.html')
-        if request.POST['password1'] ==request.POST['password2']:
-            user = User.objects.create_user(
-                username=request.POST['username'],
-                password=request.POST['password1'],
-                last_name = request.POST['user_name'],
-                email=request.POST['email'],
-                first_name=request.POST['user_add'],
-                )
-            # 중복아이디 점검 ㅠㅠ    
-            # if request.POST['username'] == auth.authenticate('username'):
-            #     return render(request, 'member/back.html') 
+  if request.method == 'POST':
+    form = SignupForm(request.POST)
+    if form.is_valid():
+      form.is_active = False # 비활성화
+      user = form.save()
+      current_site = get_current_site(request) 
+      message = render_to_string('member/activation_email.html', {
+          'user': user,
+          'domain': current_site.domain,
+          'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+          'token': member_activation_token.make_token(user),
+      })
+      mail_title = "계정 본인확인 이메일"
+      mail_to = request.POST["email"]
+      email = EmailMessage(mail_title, message, to=[mail_to])
+      email.send()
+      auth.login(request, user)
+      return render(request, 'member/signup2.html')
+      
+    # else:
+    #     form = SignupForm()  
+    return render(request, 'member : signup.html')
+
+# from .forms import SignupForm
+
+# def signup(request):
+#   if request.method == 'POST':
+#     form = SignupForm(request.POST)
+#     if form.is_valid():
+#       form.is_active = False # 비활성화
+#       user = form.save()
+#       auth.login(request, user)
+#       return redirect('signup2') 
+#     #   return render(request, 'member/signup2.html',)
+#     # else:
+#     #     form = SignupForm()  
+#   return render(request, 'member/signup.html')
+
+
+# def signup(request):
+#     if request.method == 'POST':
+#         if request.POST['password1'] ==request.POST['password2']:
+#             user = User.objects.create_user(
+#                 username=request.POST['username'],
+#                 password=request.POST['password1'],
+#                 last_name = request.POST['user_name'],
+#                 email=request.POST['email'],
+#                 first_name=request.POST['user_add'],
+#                 )
+#             user.date_joined = timezone.now()
+#             user.is_active = False # 유저 비활성화
+#             user.save()
             
-            user.date_joined = timezone.now()
-            user.is_active = False # 유저 비활성화
-            user.save()
+#             current_site = get_current_site(request) 
+#             message = render_to_string('member/activation_email.html', {
+#                 'user': user,
+#                 'domain': current_site.domain,
+#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                 'token': member_activation_token.make_token(user),
+#             })
+#             mail_title = "계정 본인확인 이메일"
+#             mail_to = request.POST["email"]
+#             email = EmailMessage(mail_title, message, to=[mail_to])
+#             email.send()
             
-            current_site = get_current_site(request) 
-            message = render_to_string('member/activation_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': member_activation_token.make_token(user),
-            })
-            mail_title = "계정 본인확인 이메일"
-            mail_to = request.POST["email"]
-            email = EmailMessage(mail_title, message, to=[mail_to])
-            email.send()
-            
-            return render(request, 'member/signup2.html') # 완료안내
+#             return render(request, 'member/signup2.html') # 완료안내
     
-    # 비밀번호 일치 안하면 회원가입 페이지 
-    return render(request, 'member/signup.html')
+#     # 비밀번호 일치 안하면 회원가입 페이지 
+#     return render(request, 'member/signup.html')
+
+
+
+
+# def signup(request):
+#     if request.method == 'POST':
+#         if User.objects.filter(username=request.POST['username']).exists(): #아이디 중복 체크
+#             return render(request, 'member/signup_error.html')
+#         if request.POST['password1'] ==request.POST['password2']:
+#             user = User.objects.create_user(
+#                 username=request.POST['username'],
+#                 password=request.POST['password1'],
+#                 last_name = request.POST['user_name'],
+#                 email=request.POST['email'],
+#                 first_name=request.POST['user_add'],
+#                 )
+#             user.date_joined = timezone.now()
+#             user.is_active = False # 유저 비활성화
+#             user.save()
+            
+#             current_site = get_current_site(request) 
+#             message = render_to_string('member/activation_email.html', {
+#                 'user': user,
+#                 'domain': current_site.domain,
+#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                 'token': member_activation_token.make_token(user),
+#             })
+#             mail_title = "계정 본인확인 이메일"
+#             mail_to = request.POST["email"]
+#             email = EmailMessage(mail_title, message, to=[mail_to])
+#             email.send()
+            
+#             return render(request, 'member/signup2.html') # 완료안내
+    
+#     # 비밀번호 일치 안하면 회원가입 페이지 
+#     return render(request, 'member/signup.html')
+
+
+
 
 # 회원가입기능
 # 이메일에 @ & . 없으면 안내해준다.
