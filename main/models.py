@@ -17,6 +17,7 @@ from sqlalchemy import ForeignKey
 #         db_table = 'user_main'
 #         managed = False
 
+
 class Category(models.Model):
     c_id = models.AutoField(primary_key=True)
     c_name = models.CharField(max_length=50)
