@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from .models import User
 from django.contrib import auth
 from django.utils import timezone
 from django.contrib.auth import get_user_model
@@ -26,32 +26,6 @@ def back(request):
     return HttpResponse('<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><font size ="10"><p><hi><center><b><u>아래 사이트를 클릭 후 재로그인해주세요.</u><br> -Petdada- <br> <font size ="15"><a href="/member/login/">LOGIN</a>')   
 
 #회원가입#
-from .forms import SignupForm
-
-def signup(request):
-  if request.method == 'POST':
-    form = SignupForm(request.POST)
-    if form.is_valid():
-      form.is_active = False # 비활성화
-      user = form.save()
-      current_site = get_current_site(request) 
-      message = render_to_string('member/activation_email.html', {
-          'user': user,
-          'domain': current_site.domain,
-          'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-          'token': member_activation_token.make_token(user),
-      })
-      mail_title = "계정 본인확인 이메일"
-      mail_to = request.POST["email"]
-      email = EmailMessage(mail_title, message, to=[mail_to])
-      email.send()
-      auth.login(request, user)
-      return render(request, 'member/signup2.html')
-      
-    # else:
-    #     form = SignupForm()  
-    return render(request, 'member : signup.html')
-
 # from .forms import SignupForm
 
 # def signup(request):
@@ -60,6 +34,35 @@ def signup(request):
 #     if form.is_valid():
 #       form.is_active = False # 비활성화
 #       user = form.save()
+#       current_site = get_current_site(request) 
+#       message = render_to_string('member/activation_email.html', {
+#           'user': user,
+#           'domain': current_site.domain,
+#           'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#           'token': member_activation_token.make_token(user),
+#       })
+#       mail_title = "계정 본인확인 이메일"
+#       mail_to = request.POST["email"]
+#       email = EmailMessage(mail_title, message, to=[mail_to])
+#       email.send()
+#       auth.login(request, user)
+#       return render(request, 'member/signup2.html')
+      
+#     # else:
+#     #     form = SignupForm()  
+#     return render(request, 'member : signup.html')
+
+
+#------------------2---------------#
+# from .forms import SignupForm
+
+# def signup(request):
+#   if request.method == 'POST':
+#     form = SignupForm(request.POST)
+#     if form.is_valid():
+#     #   form.is_active = False # 비활성화
+#       user = form.save()
+      
 #       auth.login(request, user)
 #       return redirect('signup2') 
 #     #   return render(request, 'member/signup2.html',)
@@ -68,6 +71,50 @@ def signup(request):
 #   return render(request, 'member/signup.html')
 
 
+
+def signup(request):
+    if request.method=="POST":
+        if request.POST['password1'] ==request.POST['password']:   
+            print(request.POST)
+            username=request.POST["username"]
+            firstname=request.POST["user_name"]
+            password=request.POST["password"]
+            lastname=request.POST["lastname"]
+            email=request.POST["email"]
+            
+    
+            user=User.objects.create_user(username,email,password)
+            user.last_name=lastname
+            user.first_name=firstname
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request) 
+            message = render_to_string('member/activation_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': member_activation_token.make_token(user),
+            })
+            mail_title = "계정 본인확인 이메일"
+            mail_to = request.POST["email"]
+            email = EmailMessage(mail_title, message, to=[mail_to])
+            email.send()
+            return render(request,"member/signup2.html")
+    
+    return render(request,"member/signup.html")
+
+
+
+
+
+
+
+
+
+
+
+
+#------------------4----------------#
 # def signup(request):
 #     if request.method == 'POST':
 #         if request.POST['password1'] ==request.POST['password2']:
