@@ -2,25 +2,27 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .models import *
 from .forms import *
+from member.models import User as UserAb
 
 
 
 def update_user(request):
     id = request.session['id']
-    profile = User.objects.get(id=id)
+    profile = UserAb.objects.get(id=id)
     if request.method == 'POST':
-        form = UserForm(request.POST, request.FILES, instance = profile)
+        form = UserAbForm(request.POST, request.FILES, instance = profile)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.save()
-            return redirect('mypageapp:update_user')
+            return redirect('mypageapp:update_user', id = id)
             # , id = id)
     else:
         try :
             pet = Pet.objects.get(user_id = id)
         except :
             pet = Pet.objects.filter(user_id = id)
-        form = UserForm(instance = profile)
+        form = UserAbForm(instance = profile)
+        
         return render(request, 'mypageapp/user_profile.html', {'form':form, 'pet':pet},
         )
 
@@ -35,7 +37,7 @@ def create_pet(request):
             form = PetForm(request.POST, request.FILES)
             if form.is_valid():
                 profile = form.save(commit=False)
-                profile.user = User.objects.get(id=id)
+                profile.user = UserAb.objects.get(id=id)
                 profile.save()
                 return redirect('mypageapp:update_user', id = id)
             else:
@@ -51,10 +53,10 @@ def create_pet(request):
 def update_pet(request):
     id = request.session['id']
     profile = Pet.objects.get(user_id=id)
-    profile.user = User.objects.get(id=id)
+    profile.user = UserAb.objects.get(id=id)
     if request.method=='POST':
         form = PetForm(request.POST, request.FILES, instance = profile)
-        form.user = User.objects.get(id=id)
+        form.user = UserAb.objects.get(id=id)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = form.user

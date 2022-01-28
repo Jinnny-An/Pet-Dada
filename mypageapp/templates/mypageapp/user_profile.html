@@ -35,7 +35,7 @@
                     {% csrf_token %}
                     <div class = "user_profile">
                         <div class="user_profile_img">
-                            <img class="image" src="/media/{{ form.profile_img.value }}" ><br>
+                            <img class="image" src="/media/{{ profile_img.value }}" ><br>
                             <label class="img-upload-lable" for="profile_img">UPLOAD                
                             </label>
                         </div>
@@ -46,8 +46,8 @@
 
                         <div class="form-group">
                             <label for="user_name" class="form-label mt-4">이름</label>
-                            <input type="text" class="form-control" name="user_name" id="user_name" placeholder="Name" 
-                            value="{{ form.user_name.value | default_if_none:'' }}">    
+                            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Name" 
+                            value="{{ form.first_name.value | default_if_none:'' }}">    
                         </div> 
                     
                         <div class="form-group">
@@ -57,15 +57,15 @@
                         </div> 
 
                         <div class="form-group">
-                            <label for="user_phone" class="form-label mt-4">연락처</label>
-                            <input type="text" class="form-control" name="user_phone" id="user_phone" placeholder="Phone" 
-                            value="{{ form.user_phone.value | default_if_none:'' }}">    
+                            <label for="user_ph" class="form-label mt-4">연락처</label>
+                            <input type="text" class="form-control" name="user_ph" id="user_ph" placeholder="Phone" 
+                            value="{{ form.user_ph.value | default_if_none:'' }}">    
                         </div> 
 
                         <div class="form-group">
-                            <label for="user_addr" class="form-label mt-4">주소</label>
-                            <input type="text" class="form-control" name="user_addr" id="user_addr" placeholder="Address" 
-                            value="{{ form.user_addr.value | default_if_none:'' }}">    
+                            <label for="last_name" class="form-label mt-4">주소</label>
+                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Address" 
+                            value="{{ form.last_name.value | default_if_none:'' }}">    
                         </div> 
                         <div class = "modify_btn">
                             <input type = "submit" value = "수정" class='btn-btn-primary'>
