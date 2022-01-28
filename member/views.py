@@ -120,7 +120,7 @@ def activate(request, uid64, token,*args, **kwargs):
         user.is_active = True
         user.save()
         auth.login(request, user)
-        return redirect("/main/pet_main/")
+        return redirect("/member/login")
     else:
         return render(request, 'member/login.html', {'error' : '계정 활성화 오류'})
 
