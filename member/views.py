@@ -74,16 +74,18 @@ def back(request):
 
 def signup(request):
     if request.method=="POST":
+        if User.objects.filter(username=request.POST['username']).exists(): #아이디 중복 체크
+             return render(request, 'member/signup_error.html')
         if request.POST['password1'] ==request.POST['password']:   
             print(request.POST)
-            username=request.POST["username"]
-            firstname=request.POST["user_name"]
-            password=request.POST["password"]
-            lastname=request.POST["lastname"]
-            email=request.POST["email"]
-            
+            username=request.POST["username"] #아이디
+            firstname=request.POST["user_name"] #이름
+            password=request.POST["password"] #비밀번호
+            lastname=request.POST["lastname"] #주소
+            email=request.POST["email"] #이메일
+            user_ph = request.POST["user_ph"] #핸드폰번호
     
-            user=User.objects.create_user(username,email,password)
+            user=User.objects.create_user(username,email,password,user_ph=user_ph)
             user.last_name=lastname
             user.first_name=firstname
             user.is_active = False
@@ -100,6 +102,8 @@ def signup(request):
             email = EmailMessage(mail_title, message, to=[mail_to])
             email.send()
             return render(request,"member/signup2.html")
+        else:
+            return render(request,"member/signup3.html")  
     
     return render(request,"member/signup.html")
 
@@ -117,6 +121,7 @@ def signup(request):
 #------------------4----------------#
 # def signup(request):
 #     if request.method == 'POST':
+          
 #         if request.POST['password1'] ==request.POST['password2']:
 #             user = User.objects.create_user(
 #                 username=request.POST['username'],
