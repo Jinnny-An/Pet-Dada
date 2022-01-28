@@ -44,7 +44,10 @@ def ajaxGet(request):
     num = 0     # 가게별로 설명창이 열리게 설정하기 위해서 num변수 추가
 
     for store in store_list:
-        img_path = str(store.store_img).lstrip('/main')
+        
+        img_path = str(store.store_img).replace('main', 'media/main')
+        print(str(store.store_img))
+        print(img_path)
 
         out += '<div class="list-shop-content"> <div class="title_img"><div class="store_title">'
         out += store.store_name + '</div><img id="store-image" src="/'

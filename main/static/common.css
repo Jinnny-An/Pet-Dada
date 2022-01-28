@@ -135,6 +135,32 @@ html, body {
     width: 100%;
     background-color: lightgray;
 }
+/* 지도 검색 & 현위치 창*/
+#search {
+    position: absolute;
+    top: 0;
+    background-color: white;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 5px;
+    padding-left: 8px;
+    font-weight: bold;
+}
+
+.btn-search {
+    background-color: transparent;
+    border: 3px solid #57422D;
+    color: #57422D ;
+    font-weight: bold;
+}
+
+.user-place-label {
+    background-color: transparent;
+    border: 3px solid #57422D;
+    color: #57422D ;
+    font-weight: bold;
+    padding: 1px 6px;
+}
 
 /* 카테고리 - 드롭다운 */
 /* 화면이 움직여도 오른쪽 상단에 고정되도록 함 : position: absolute; 로 바꾸면 화면이 움직이면 안보임*/
@@ -147,16 +173,17 @@ html, body {
 }
 
 .dropdown > ul {
-    background: rgba(255, 255, 255, 0.473);
+    background: rgba(255, 255, 255, 0.678);
 }
 
 /* 버튼 설정 : 배경색과 테두리 없앰*/
 #dropdownMenuButton1 {
-    background-color: transparent;
+    background-color: #fef0D6;
+    /* border: 5px solid #fef0D6; */
     border: none;
     color: #57422D;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .dropdown-item {

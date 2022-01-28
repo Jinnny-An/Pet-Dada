@@ -18,7 +18,7 @@
         </div>
         
         <ul>
-            <img id="logo" src='{% static  "logo.png"%}'/>
+            <a href="/main/pet_main/"><img id="logo" src='{% static  "logo.png"%}'/></a>
             <h2 id="proName">PET DADA</h2>
             <li>
                 <a href="#">마이페이지</a>
@@ -39,8 +39,16 @@
 
         </div>
         <!-- 지도 -->
-        <div class="map">
-            지도/////////////////////
+        <div id="map" class="map">
+        </div>
+        <!-- 검색, 현위치 -->
+        <div id = "search">
+            <form onsubmit="searchPlace(); return false;">
+                검색  <input type="text" id="addr_cate" size="15"> 
+                <button class="btn-search" type="submit">검색하기</button>
+                <label for="user-place" class="user-place-label">현재 위치</label>
+                <input id="user-place" type = "button" onclick="curr_place()" style="display: none;">
+            </form>
         </div>
     </div>
 
@@ -70,6 +78,7 @@
     </body>
 
     <script>
+        // 카테고리를 클릭하면 가게 리스트를 출력함
         function show_list(clicked_id) {
             const ajax = fetch('/main/req/get/?key='+clicked_id,{
                 method: 'post',
