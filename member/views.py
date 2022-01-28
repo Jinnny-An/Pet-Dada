@@ -109,6 +109,7 @@ def logout(request):
 
 
 # 이메일 활성화(비활성화) #
+
 def activate(request, uid64, token,*args, **kwargs):
     try:
         uid = force_str(urlsafe_base64_decode(uid64))
