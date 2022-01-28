@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse
 from html5lib import serialize
-from .models import Category, Store, User
+from .models import Category, Store
 from django.forms.models import model_to_dict
 from django.utils import timezone
 import json
