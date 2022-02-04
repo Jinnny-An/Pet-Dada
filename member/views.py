@@ -109,6 +109,7 @@ def logout(request):
 
 
 # 이메일 활성화(비활성화) #
+
 def activate(request, uid64, token,*args, **kwargs):
     try:
         uid = force_str(urlsafe_base64_decode(uid64))
@@ -119,7 +120,7 @@ def activate(request, uid64, token,*args, **kwargs):
         user.is_active = True
         user.save()
         auth.login(request, user)
-        return redirect("/main/pet_main/")
+        return redirect("/member/login")
     else:
         return render(request, 'member/login.html', {'error' : '계정 활성화 오류'})
 

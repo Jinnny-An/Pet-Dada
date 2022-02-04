@@ -5,8 +5,8 @@ from .forms import ReviewForm,CommentForm
 from django.http import HttpResponse
 from django.core.paginator import Paginator  
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from member.models import User
 
 def index(request):
     #board의 목록 출력
@@ -34,21 +34,18 @@ def detail(request, review_id):
     context = {'review': review}
     return render(request, 'board/review_detail.html', context)
 
-
-
 def review_create(request):
-    #board의 질문 등록(사진 업로드 가능하게 못했음)
+    #board의 질문 등록
     if request.method == 'POST':
         form = ReviewForm(request.POST,request.FILES)
         subject=request.POST['subject']
         content=request.POST['content']
-        file=request.POST['file']
+        file=request.FILES.get('file')
+
         if form.is_valid():
             review = form.save(commit=False)
-            name=review.file.name
-            size=review.file.size
-            review.create_date = timezone.now()
             review.save()
+            print(id)
             return redirect('board:index')
     else:
         form = ReviewForm()
@@ -63,6 +60,7 @@ def comment_create(request, review_id):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.create_date = timezone.now()
+            comment.author=request.user
             comment.review = review
             comment.save()
             return redirect('board:detail', review_id=review.id)
@@ -71,13 +69,9 @@ def comment_create(request, review_id):
     context = {'review': review, 'form': form}
     return render(request, 'board/review_detail.html', context)  
 
-@login_required(login_url='common:login')
 def review_modify(request, review_id):
     #board 질문수정
     review = get_object_or_404(Review, pk=review_id)
-    if request.user != review.author:
-        messages.error(request, '수정권한이 없습니다')
-        return redirect('board:detail', review_id=review.id)
 
     if request.method == "POST":
         form = ReviewForm(request.POST, instance=review)
@@ -91,43 +85,33 @@ def review_modify(request, review_id):
     context = {'form': form}
     return render(request, 'board/review_form.html', context)
 
-@login_required(login_url='common:login')
 def review_delete(request, review_id):
     #board 질문삭제
-    review = get_object_or_404(Review, pk=review_id)
-    if request.user != review.author:
-        messages.error(request, '삭제권한이 없습니다')
-        return redirect('board:detail', review_id=review.id)
+    #review=get_object_or_404(Review,pk=review_id)
+    review=get_object_or_404(Review,pk=review_id)
     review.delete()
     return redirect('board:index')
 
-@login_required(login_url='common:login')
 def comment_modify(request, comment_id):
     #board 답변수정
     comment = get_object_or_404(Comment, pk=comment_id)
-    if request.user != comment.author:
-        messages.error(request, '수정권한이 없습니다')
-        return redirect('board:detail', comment_id=comment.review.id)
-
     if request.method == "POST":
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.modify_date = timezone.now()
             comment.save()
-            return redirect('board:detail', review_id=comment.review.id)
+            return redirect('board:detail', comment_id=comment.review.id)
     else:
         form = CommentForm(instance=comment)
     context = {'comment': comment, 'form': form}
     return render(request, 'board/comment_form.html', context)
 
-@login_required(login_url='common:login')
 def comment_delete(request, comment_id):
     #board 답변삭제
+    
     comment = get_object_or_404(Comment, pk=comment_id)
-    if request.user != comment.author:
-        messages.error(request, '삭제권한이 없습니다')
-    else:
-        comment.delete()
-    return redirect('board:detail', review_id=comment.review.id)
+    comment_id=comment.review.id
+    comment.delete()
+    return redirect('board:detail', comment_id)
 
