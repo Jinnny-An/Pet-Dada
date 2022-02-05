@@ -27,19 +27,22 @@ def back(request):
 #회원가입#
 
 def signup(request):
-    if request.method == 'POST':
-        if request.POST['password1'] ==request.POST['password2']:
-            user = User.objects.create_user(
-                username=request.POST['username'], 
-                password=request.POST['password1'],
-                email=request.POST['email'],
-                )
-            # 중복아이디 점검 ㅠㅠ    
-            # if request.POST['username'] == auth.authenticate('username'):
-            #     return render(request, 'member/back.html') 
-            
-            user.date_joined = timezone.now()
-            user.is_active = False # 유저 비활성화
+    if request.method=="POST":
+        if User.objects.filter(username=request.POST['username']).exists(): #아이디 중복 체크
+             return render(request, 'member/signup_error.html')
+        if request.POST['password1'] ==request.POST['password']:   
+            print(request.POST)
+            username=request.POST["username"] #아이디
+            firstname=request.POST["user_name"] #이름
+            password=request.POST["password"] #비밀번호
+            lastname=request.POST["lastname"] #주소
+            email=request.POST["email"] #이메일
+            user_ph = request.POST["user_ph"] #핸드폰번호
+    
+            user=User.objects.create_user(username,email,password,user_ph=user_ph)
+            user.last_name=lastname
+            user.first_name=firstname
+            user.is_active = False
             user.save()
             
             current_site = get_current_site(request) 
@@ -53,11 +56,12 @@ def signup(request):
             mail_to = request.POST["email"]
             email = EmailMessage(mail_title, message, to=[mail_to])
             email.send()
-            #return redirect("/home")  #메인으로
-            return render(request, 'member/login.html') # 로그인화면으로!
+            return render(request,"member/signup2.html")
+        else:
+            return render(request,"member/signup3.html")  
     
-    # 비밀번호 일치 안하면 회원가입 페이지 
-    return render(request, 'member/signup.html')
+    return render(request,"member/signup.html")
+
 
 # 회원가입기능
 # 이메일에 @ & . 없으면 안내해준다.
@@ -106,6 +110,7 @@ def logout(request):
 
 
 # 이메일 활성화(비활성화) #
+
 def activate(request, uid64, token,*args, **kwargs):
     try:
         uid = force_str(urlsafe_base64_decode(uid64))
@@ -116,7 +121,7 @@ def activate(request, uid64, token,*args, **kwargs):
         user.is_active = True
         user.save()
         auth.login(request, user)
-        return redirect("/home")
+        return redirect("/member/login")
     else:
         return render(request, 'member/login.html', {'error' : '계정 활성화 오류'})
 

@@ -32,13 +32,13 @@
         </div>
         
         <ul>
-            <img id="logo" src='{% static  "logo.png"%}'/>
+            <a href="/main/pet_main/"><img id="logo" src='{% static  "logo.png"%}'/></a>
             <h2 id="proName">PET DADA</h2>
             <li>
-                <a href="/mypage/user/">마이페이지</a>
+                <a href='{% url "mypageapp:update_user" %}'>마이페이지</a>
             </li>
             <li>
-                <a href="#">게시판</a>
+                <a href='/board'>게시판</a>
             </li>
             <li>
                 {% if user.is_authenticated %}

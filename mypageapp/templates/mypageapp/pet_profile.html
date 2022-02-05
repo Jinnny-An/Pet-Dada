@@ -7,9 +7,9 @@
 <form method='post' enctype="multipart/form-data">
     {% csrf_token %}
     
-    <div class="form-group">
-        <label for="pet_img">
-        <img class="image" src="/media/pet_img/{{ form.pet_img.value }}"/>
+    <div class="form-group" id="pet-upload-image">
+        <img class="image" src="/media/{{ form.pet_img.value }}" onerror="this.src='/media/basic_pet_profile.png'"/>
+        <label class="img-upload-label" for="pet_img">UPLOAD</label>
         <input type="file" class="form-control" name="pet_img" id="pet_img"
             value="{{ form.pet_img.value | default_if_none:''}}">
         </label>

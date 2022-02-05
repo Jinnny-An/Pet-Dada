@@ -22,8 +22,6 @@ class Category(models.Model):
     c_id = models.AutoField(primary_key=True)
     c_name = models.CharField(max_length=50)
 
-    class Meta:
-        managed = False
     
 class Store(models.Model):
     store_id = models.AutoField(primary_key=True)
@@ -37,7 +35,7 @@ class Store(models.Model):
     # 객체가 생성되는 시간을 자동으로 저장해줌
     created_at = models.DateTimeField(auto_now_add=True)
     # db_column을 설정하지 않으면 c_id_id로 저장됨
-    c_id = models.ForeignKey('Category', db_column='c_id', on_delete=models.CASCADE)
+    c_id = models.ForeignKey(Category, db_column='c_id', on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'store'
