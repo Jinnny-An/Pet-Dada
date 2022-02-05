@@ -4,7 +4,7 @@
 <div class="container my-3">
 <h2 class="border-bottom py-2"></h2>
 <div class="card mb-3">
-    {% comment %} <img src="..." class="card-img-top" alt="No Image"> {% endcomment %}
+    {% comment %} <img src="..." class="card-img-top" alt="No Image" onError="this.style.visibility='hidden'"> {% endcomment %}
     <div class="card card-body">
         <h4 align="left" class="card-title">{{review.subject}}</h4>
         <div> <class="card-text" >
@@ -58,10 +58,10 @@
             </div>
             <!--답변 수정 버튼-->
             <div class="my-3">
-                <a href="{% url 'board:comment_modify' review.id  %}" 
+                <a href="{% url 'board:comment_modify' comment.id  %}" 
                     class="btn btn-sm btn-outline-primary">수정</a>
-                <a href="{% url 'board:comment_delete' review.id  %}" class="delete btn btn-sm btn-outline-primary " 
-                    data-uri="{% url 'board:comment_delete' review.id  %}">삭제</a>
+                <a href="{% url 'board:comment_delete' comment.id  %}" class="delete btn btn-sm btn-outline-primary " 
+                    data-uri="{% url 'board:comment_delete' comment.id  %}">삭제</a>
             </div>
         </div>
     </div>

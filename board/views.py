@@ -44,6 +44,7 @@ def review_create(request):
 
         if form.is_valid():
             review = form.save(commit=False)
+            review.create_date = timezone.now()
             review.save()
             print(id)
             return redirect('board:index')
@@ -87,7 +88,7 @@ def review_modify(request, review_id):
 
 def review_delete(request, review_id):
     #board 질문삭제
-    #review=get_object_or_404(Review,pk=review_id)
+
     review=get_object_or_404(Review,pk=review_id)
     review.delete()
     return redirect('board:index')
@@ -101,7 +102,7 @@ def comment_modify(request, comment_id):
             comment = form.save(commit=False)
             comment.modify_date = timezone.now()
             comment.save()
-            return redirect('board:detail', comment_id=comment.review.id)
+            return redirect('board:detail', review_id=comment.review.id)
     else:
         form = CommentForm(instance=comment)
     context = {'comment': comment, 'form': form}
