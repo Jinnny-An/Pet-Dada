@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta  tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- board CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <style>
+        body {
+            display: flex;
+            width: 100%;
+            height: 100%
+        }
+
+        .content-b {
+            height: 100%;
+            width: 1300px;
+            margin-left: 300px;
+        }
+
+        .btn-primary {
+            background-color: #57422d;
+        }
+        .page-link {
+            background-color: #57422d;
+        }
+        .btn-search {
+            background-color: #57422d;
+        }
+        
+    </style>
+    <title>애견인을 위한 PET DADA</title>
+</head>
+<body>
+{% comment %} {% include "navbar.html" %} {% endcomment %}
+<div class="side-bar-b">
+    {% include "side_bar.html"%}
+</div>
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+<div class="content-b">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+
+<!-- jQuery JS -->
+<script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
+<!-- 자바스크립트 Start -->
+{% block script %}
+{% endblock %}
+<!-- 자바스크립트 End -->
+</body>
+</html>
