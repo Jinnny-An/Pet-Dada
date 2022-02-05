@@ -14,7 +14,7 @@ class SignupForm(UserCreationForm):
         model = User
         fields = ('username', 'email','last_name','first_name')   
 
-        
+
 
 
 

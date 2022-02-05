@@ -45,8 +45,12 @@
                         </div>
                         <input type="file" class="form-control" name="profile_img" id="profile_img"
                                 value="{{ form.profile_img.value | default_if_none:'' }}" style="display: none;">
-
                         
+                        <div class="form-group">
+                            <label for="id" class="form-label mt-4">ID</label>
+                            <input type="text" class="form-control" name="username" id="first_name" placeholder="Name" 
+                            value="{{ form.username.value | default_if_none:'' }}">    
+                        </div> 
 
                         <div class="form-group">
                             <label for="user_name" class="form-label mt-4">이름</label>
@@ -70,7 +74,7 @@
                             <label for="last_name" class="form-label mt-4">주소</label>
                             <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Address" 
                             value="{{ form.last_name.value | default_if_none:'' }}">    
-                        </div> 
+                        </div> <br><br>
                         <div class = "modify_btn">
                             <input type = "submit" value = "수정" class='btn-btn-primary'>
                             <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-4793b73c6332f7f14a9b6bba5d5e62748e9d1bd0b5c52d7af6376f3d1c625d7e.js"></script>

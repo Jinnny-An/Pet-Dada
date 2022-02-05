@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from .models import *
 from .forms import *
 from member.models import User as UserAb
+from member.forms import *
 
 
 
@@ -11,18 +12,21 @@ def update_user(request):
     profile = UserAb.objects.get(id=id)
     if request.method == 'POST':
         form = UserAbForm(request.POST, request.FILES, instance = profile)
+        print(form)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.save()
-            return redirect('mypageapp:update_user', id = id)
-            # , id = id)
+        
+            return redirect('mypageapp:update_user')#, id = id)
+        else:
+            return HttpResponse('다시해라')
     else:
         try :
             pet = Pet.objects.get(user_id = id)
         except :
             pet = Pet.objects.filter(user_id = id)
+
         form = UserAbForm(instance = profile)
-        
         return render(request, 'mypageapp/user_profile.html', {'form':form, 'pet':pet},
         )
 
@@ -57,6 +61,7 @@ def update_pet(request):
     if request.method=='POST':
         form = PetForm(request.POST, request.FILES, instance = profile)
         form.user = UserAb.objects.get(id=id)
+        print(form)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = form.user

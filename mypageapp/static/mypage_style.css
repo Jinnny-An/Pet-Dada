@@ -32,7 +32,7 @@ body {
 .whole-contents {
     display: flex;
     flex-direction: column;
-    border: 8px solid white;
+    border: 8px solid rgb(0, 0, 0);
     text-align: center;
     align-items: center;
     justify-content: center;
