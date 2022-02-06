@@ -101,7 +101,7 @@ def comment_modify(request, comment_id):
             comment = form.save(commit=False)
             comment.modify_date = timezone.now()
             comment.save()
-            return redirect('board:detail', comment_id=comment.review.id)
+            return redirect('board:detail', review_id=comment.review.id)
     else:
         form = CommentForm(instance=comment)
     context = {'comment': comment, 'form': form}
