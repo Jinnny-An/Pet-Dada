@@ -114,9 +114,9 @@ body {
 
 .my_user_info, .my_pet_info {
     width: 500px;
-    height: 650px;
+    height: 710px;
     border: 8px solid white;
-    margin-top: 50px;
+    margin-top: 40px;
     margin-right: 0px;
     display: flex;
 }
@@ -190,10 +190,11 @@ body {
 
 .modify_btn {
     margin-top: 30px;
+    margin-bottom: 15px;
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 100px;
+    height: fit-content;
 }
 .btn-btn-primary{
     background-color: transparent;
@@ -442,10 +443,10 @@ textarea.form-control-lg {
     padding-top: 20px;
 }
 .text-muted{
+    margin: 30px 0;
     margin-left: 80px;
 }
 
 .btn-submit-pet {
-    margin-top: 16px;
     text-align: center;
 }
