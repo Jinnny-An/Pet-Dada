@@ -74,7 +74,7 @@ def review_modify(request, review_id):
     review = get_object_or_404(Review, pk=review_id)
 
     if request.method == "POST":
-        form = ReviewForm(request.POST, instance=review)
+        form = ReviewForm(request.POST, request.FILES, instance=review)
         if form.is_valid():
             review = form.save(commit=False)
             review.modify_date = timezone.now()  # 수정일시 저장
