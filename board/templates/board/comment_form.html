@@ -4,7 +4,7 @@
 <div class="container my-3">
     <form method="post" class="post-form">
         {% csrf_token %}
-        {% include "form_errors.html" %}
+      
         <div class="form-group">
             <label for="content">답글내용</label>
             <textarea class="form-control" name="content" id="content" 
