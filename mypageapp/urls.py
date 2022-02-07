@@ -11,6 +11,8 @@ urlpatterns = [
     path('user/pet/', views.create_pet, name ='create_pet'),
 
     path('update/', views.update_pet, name='update_pet'),
+    
+    path('delete/', views.delete_user_img, name='delete_user_img'),
 
 
 ]
