@@ -72,4 +72,10 @@ def update_pet(request):
         return render(request, 'mypageapp/pet_profile.html', {'form':form},
         )
 
+    
+def delete_user_img(request):
+    id = request.session['id']
+    profile_img = UserAb.objects.get(id=id)
+    profile_img.profile_img.delete()
+    return redirect('mypageapp:update_user')
 
