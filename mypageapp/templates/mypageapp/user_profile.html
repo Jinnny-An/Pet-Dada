@@ -40,8 +40,8 @@
                     <div class = "user_profile">
                         <div class="user_profile_img">
                             <img class="image" src="/media/{{ form.profile_img.value }}" onerror="this.src='/media/basic_profile.png'"><br>
-                            <label class="img-upload-lable" for="profile_img">UPLOAD                
-                            </label>
+                            <label class="img-upload-lable" for="profile_img">UPLOAD</label>
+                            <a href = "{% url 'mypageapp:delete_user_img' %}" button type="submit" class='btn-btn-primary'>del</button></a>
                         </div>
                         <input type="file" class="form-control" name="profile_img" id="profile_img"
                                 value="{{ form.profile_img.value | default_if_none:'' }}" style="display: none;">
